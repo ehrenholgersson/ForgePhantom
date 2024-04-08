@@ -1,0 +1,90 @@
+[gd_scene load_steps=15 format=3 uid="uid://lhy3nyrrodry"]
+
+[ext_resource type="Texture2D" uid="uid://boharu6plmbfy" path="res://Art/Textures/Kenny/Dark/texture_05.png" id="1_dfp26"]
+[ext_resource type="Script" path="res://Scripts/PlayerMovement.cs" id="1_gjvdr"]
+[ext_resource type="Script" path="res://Scripts/CameraMovement.cs" id="2_751fy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04vd0"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_1ypft"]
+sky_material = SubResource("ProceduralSkyMaterial_04vd0")
+
+[sub_resource type="Environment" id="Environment_81ia3"]
+background_mode = 2
+sky = SubResource("Sky_1ypft")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ixr15"]
+albedo_texture = ExtResource("1_dfp26")
+uv1_scale = Vector3(50, 50, 50)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_obylb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33moi"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0.298039, 0.0352941, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rgt1j"]
+size = Vector3(1, 0.001, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xou06"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iiolw"]
+albedo_color = Color(0.509804, 0.270588, 0.8, 0.509804)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8r82u"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_3as4g"]
+
+[node name="Scene" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_81ia3")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0.000400603, -0.00236464, 0.000825405)
+material_override = SubResource("StandardMaterial3D_ixr15")
+mesh = SubResource("PlaneMesh_obylb")
+surface_material_override/0 = SubResource("StandardMaterial3D_33moi")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.000671387, -0.000109334, 0.00773705)
+shape = SubResource("BoxShape3D_rgt1j")
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.36089, 0)
+script = ExtResource("1_gjvdr")
+_camera = NodePath("../Camera3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_xou06")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+material_override = SubResource("StandardMaterial3D_iiolw")
+mesh = SubResource("CapsuleMesh_8r82u")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.188, 0.549, -0.272)
+mesh = SubResource("SphereMesh_3as4g")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.188, 0.549, -0.271732)
+mesh = SubResource("SphereMesh_3as4g")
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(0.829886, -0.270415, 0.488022, 0, 0.874696, 0.484672, -0.557933, -0.402223, 0.725898, 7.89538, 16.3977, 11.6064)
+script = ExtResource("2_751fy")
+player = NodePath("../Player")
+mouse_sensitivity = Vector2(20, 20)
+zoom_speed = 30.0
+max_zoom = 30.0
+min_zoom = 6.0
