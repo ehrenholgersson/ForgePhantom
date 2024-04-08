@@ -19,7 +19,7 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ixr15"]
 albedo_texture = ExtResource("1_dfp26")
-uv1_scale = Vector3(50, 50, 50)
+uv1_scale = Vector3(100, 100, 100)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_obylb"]
 
@@ -68,23 +68,26 @@ _camera = NodePath("../Camera3D")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_xou06")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+[node name="Body" type="MeshInstance3D" parent="Player"]
 material_override = SubResource("StandardMaterial3D_iiolw")
 mesh = SubResource("CapsuleMesh_8r82u")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player"]
+[node name="Eye" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.188, 0.549, -0.272)
 mesh = SubResource("SphereMesh_3as4g")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Player"]
+[node name="Eye2" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.188, 0.549, -0.271732)
 mesh = SubResource("SphereMesh_3as4g")
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("focus")]
 transform = Transform3D(0.829886, -0.270415, 0.488022, 0, 0.874696, 0.484672, -0.557933, -0.402223, 0.725898, 7.89538, 16.3977, 11.6064)
+v_offset = -2.0
 script = ExtResource("2_751fy")
-player = NodePath("../Player")
+focus = NodePath("../Player")
 mouse_sensitivity = Vector2(20, 20)
 zoom_speed = 30.0
 max_zoom = 30.0
 min_zoom = 6.0
+camera_angle = 50.0
+camera_rotation = 45.0

@@ -45,6 +45,7 @@ public partial class PlayerMovement : CharacterBody3D
 		MoveAndSlide();
 	}
 
+// may need to create my own math helper class for this project
 	public float signedangle (Vector2 a, Vector2 b)
 	{
 		return Mathf.Atan2(a.X*b.Y-b.X*a.Y,a.X*a.Y+b.X*b.Y);
