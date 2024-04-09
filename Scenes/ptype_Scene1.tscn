@@ -1,8 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://lhy3nyrrodry"]
+[gd_scene load_steps=22 format=3 uid="uid://lhy3nyrrodry"]
 
+[ext_resource type="Script" path="res://Scripts/General/GameController.cs" id="1_646sc"]
 [ext_resource type="Texture2D" uid="uid://boharu6plmbfy" path="res://Art/Textures/Kenny/Dark/texture_05.png" id="1_dfp26"]
-[ext_resource type="Script" path="res://Scripts/PlayerMovement.cs" id="1_gjvdr"]
-[ext_resource type="Script" path="res://Scripts/CameraMovement.cs" id="2_751fy"]
+[ext_resource type="Script" path="res://Scripts/Player/PlayerController.cs" id="1_gjvdr"]
+[ext_resource type="Script" path="res://Scripts/Player/CameraMovement.cs" id="2_751fy"]
+[ext_resource type="Script" path="res://Scripts/UI/ToolBar.cs" id="5_24wj0"]
+[ext_resource type="Script" path="res://Scripts/Items/Collectable.cs" id="5_rq771"]
+[ext_resource type="PackedScene" uid="uid://d3v0wdpxcc3ue" path="res://Scenes/Prefabs/drag_item.tscn" id="6_1lg6w"]
+[ext_resource type="Resource" uid="uid://cjbjnnqu2uo8a" path="res://Resources/TestItem.tres" id="6_ymbuk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04vd0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -39,7 +44,15 @@ albedo_color = Color(0.509804, 0.270588, 0.8, 0.509804)
 
 [sub_resource type="SphereMesh" id="SphereMesh_3as4g"]
 
-[node name="Scene" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_w2i8p"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_sk2ac"]
+
+[node name="Scene" type="Node3D" node_paths=PackedStringArray("_player", "_camera")]
+script = ExtResource("1_646sc")
+_player = NodePath("Player")
+_camera = NodePath("Camera3D")
+metadata/_edit_vertical_guides_ = [-88.0]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -80,9 +93,15 @@ mesh = SubResource("SphereMesh_3as4g")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.188, 0.549, -0.271732)
 mesh = SubResource("SphereMesh_3as4g")
 
+[node name="InteractionArea" type="Area3D" parent="Player"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/InteractionArea"]
+transform = Transform3D(6.275, 0, 0, 0, 6.275, 0, 0, 0, 6.275, 0, 0.71, -0.955)
+shape = SubResource("SphereShape3D_w2i8p")
+
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("focus")]
 transform = Transform3D(0.829886, -0.270415, 0.488022, 0, 0.874696, 0.484672, -0.557933, -0.402223, 0.725898, 7.89538, 16.3977, 11.6064)
-v_offset = -2.0
+v_offset = -1.8
 script = ExtResource("2_751fy")
 focus = NodePath("../Player")
 mouse_sensitivity = Vector2(20, 20)
@@ -91,3 +110,128 @@ max_zoom = 30.0
 min_zoom = 6.0
 camera_angle = 50.0
 camera_rotation = 45.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 484.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" node_paths=PackedStringArray("worldScene")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_24wj0")
+buttonHeldTime = 0.1
+itemDragPrefab = ExtResource("6_1lg6w")
+worldScene = NodePath("../..")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Inventory"
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Build"
+
+[node name="Inventory" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="Control/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+action_mode = 0
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button3" type="Button" parent="Control/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button4" type="Button" parent="Control/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button5" type="Button" parent="Control/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button6" type="Button" parent="Control/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button7" type="Button" parent="Control/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button8" type="Button" parent="Control/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BuildMenu" type="HBoxContainer" parent="Control/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button2" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button3" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button4" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button5" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button6" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button7" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button8" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Collectable2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.79502, 13.8128)
+script = ExtResource("5_rq771")
+_item = ExtResource("6_ymbuk")
+
+[node name="Model" type="MeshInstance3D" parent="Collectable2"]
+mesh = SubResource("SphereMesh_sk2ac")
+skeleton = NodePath("")
+
+[node name="Collectable3" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63158, 13.0848, 13.8128)
+script = ExtResource("5_rq771")
+_item = ExtResource("6_ymbuk")
+
+[node name="Model" type="MeshInstance3D" parent="Collectable3"]
+mesh = SubResource("SphereMesh_sk2ac")
+skeleton = NodePath("")

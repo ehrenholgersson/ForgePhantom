@@ -1,0 +1,100 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\egore\\ForgePhantom\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\ui\\toolbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\ui\\toolbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\items\\collectable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\items\\collectable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\general\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\general\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 159,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Collectable.cs",
+              "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Items\\Collectable.cs",
+              "RelativeDocumentMoniker": "Scripts\\Items\\Collectable.cs",
+              "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Items\\Collectable.cs",
+              "RelativeToolTip": "Scripts\\Items\\Collectable.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T09:36:29.78Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GameController.cs",
+              "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\General\\GameController.cs",
+              "RelativeDocumentMoniker": "Scripts\\General\\GameController.cs",
+              "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\General\\GameController.cs",
+              "RelativeToolTip": "Scripts\\General\\GameController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T07:25:14.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\PlayerController.cs",
+              "RelativeDocumentMoniker": "Scripts\\Player\\PlayerController.cs",
+              "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\PlayerController.cs",
+              "RelativeToolTip": "Scripts\\Player\\PlayerController.cs",
+              "ViewState": "AQIAADgAAAAAAAAAAAAgwEIAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T06:24:30.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ToolBar.cs",
+              "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\UI\\ToolBar.cs",
+              "RelativeDocumentMoniker": "Scripts\\UI\\ToolBar.cs",
+              "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\UI\\ToolBar.cs",
+              "RelativeToolTip": "Scripts\\UI\\ToolBar.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-09T06:08:31.423Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

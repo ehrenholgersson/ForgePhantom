@@ -19,7 +19,7 @@ public partial class CameraMovement : Camera3D
 	float zoom_input;
 	Vector2 last_mouse_position = Vector2.Zero;
 	Vector2 mouse_velocity = Vector2.Zero;
-	public Vector3 Camera_Forwards {get => ((GlobalTransform.Basis.Z.Project(Basis.Identity.Z))+(GlobalTransform.Basis.Z.Project(Basis.Identity.X))).Normalized(); }
+	public Vector3 Camera_Forwards {get => (GlobalTransform.Basis.Z - GlobalTransform.Basis.Z.Project(Basis.Identity.Y)).Normalized();} // camera facing direction without any Y component - for player movement direction
 	public float Camera_Rotation {get => camera_rotation; }
 	int mouse_inversion 
 	{ 
@@ -117,7 +117,7 @@ public partial class CameraMovement : Camera3D
 		// apply to camera position and rotation
 		// the below works but feels slightly jank
 		GlobalPosition = focus?.Position + (new Vector3(0,Mathf.Tan(Mathf.DegToRad(camera_angle)),1) * Quaternion.FromEuler(new Vector3(0,Mathf.DegToRad(camera_rotation),0))).Normalized() * camera_distance ?? GlobalPosition; 
-		LookAt(focus.Position, Basis.Identity.Y,false);
+		LookAt(focus?.Position ?? Vector3.Zero, Basis.Identity.Y,false);
 		// reset mouse velocity value as this only updates when the mouse moves, should be zero whenever its not updating
 		 mouse_velocity = Vector2.Zero;
 		 zoom_input = 0;

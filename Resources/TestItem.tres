@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CollectableItem" load_steps=4 format=3 uid="uid://cjbjnnqu2uo8a"]
+
+[ext_resource type="Texture2D" uid="uid://dosmdlegxjrs8" path="res://Art/Sprites/icon.svg" id="1_8s3o0"]
+[ext_resource type="Script" path="res://Scripts/Items/CollectableInfo.cs" id="1_f72y7"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_4claa"]
+
+[resource]
+script = ExtResource("1_f72y7")
+icon = ExtResource("1_8s3o0")
+model = SubResource("SphereMesh_4claa")
