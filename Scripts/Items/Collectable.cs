@@ -4,10 +4,12 @@ using Godot;
 [GlobalClass]
 public partial class Collectable : RigidBody3D, IInteractable
 {
-	[Export] CollectableInfo _item;
+	[Export] CollectableResource _item;
 	MeshInstance3D _meshInstance;
 	CollisionShape3D _collider; // - not sure if needed?
 	RandomNumberGenerator _rng = new RandomNumberGenerator();
+
+	
     //public Collectable(CollectableItem itm)
     //{
     //    item = itm;
@@ -43,7 +45,7 @@ public partial class Collectable : RigidBody3D, IInteractable
 		_item.health = _rng.RandiRange(0, 30);
 	}
 
-	public void SetItem(CollectableInfo itm)
+	public void SetItem(CollectableResource itm)
 	{
 		_item = itm;
 	}

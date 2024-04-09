@@ -49,7 +49,7 @@ public partial class CameraMovement : Camera3D
 		camera_angle += angle;
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
+	public override void _Input(InputEvent @event)
 {
     if (@event is InputEventMouseMotion mouseEvent)
 	{
@@ -75,12 +75,12 @@ public partial class CameraMovement : Camera3D
 	public override void _Process(double delta)
 	{
 		//take inputs to modify values for camera angle and rotation
-		if (Input.IsActionPressed("camera_modifier"))
+		if (PlayerController.controlMode==PlayerController.ControlMode.player)//Input.IsActionPressed("camera_modifier"))
 		{
-			if (Input.IsActionJustPressed("camera_modifier"))
-			{
-			Input.MouseMode = Input.MouseModeEnum.Captured;
-			}
+			//if (Input.IsActionJustPressed("camera_modifier"))
+			//{
+			//Input.MouseMode = Input.MouseModeEnum.Captured;
+			//}
 			if (allow_camera_rotation)
 			{
 				RotateCamera(mouse_velocity.X * (float)delta * mouse_sensitivity.X);

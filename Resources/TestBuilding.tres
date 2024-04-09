@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=4 format=3 uid="uid://e2f67sfrefec"]
+
+[ext_resource type="Script" path="res://Scripts/Items/BuildingResource.cs" id="1_1fu7k"]
+[ext_resource type="Texture2D" uid="uid://dosmdlegxjrs8" path="res://Art/Sprites/icon.svg" id="1_j6y86"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hlbch"]
+top_radius = 5.0
+bottom_radius = 5.0
+height = 5.0
+
+[resource]
+script = ExtResource("1_1fu7k")
+icon = ExtResource("1_j6y86")
+model = SubResource("CylinderMesh_hlbch")
