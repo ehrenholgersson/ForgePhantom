@@ -12,6 +12,7 @@ public partial class ToolBar : VBoxContainer
 	[Export] Control _inventoryBar;
     [Export] Control _buildMenu;
     [Export] Node _worldScene;
+	[Export] float _gridSize;
 
     float _buttonTimer = 0;
 
@@ -26,6 +27,7 @@ public partial class ToolBar : VBoxContainer
 	Node3D _tempItem;
 	Material _tempItemMat;
 	Vector2 _mousePosition;
+	Vector3 _tempItemSize;
 
 	public int number(int theNumber)
 	{
@@ -56,13 +58,14 @@ public partial class ToolBar : VBoxContainer
 				((Button)child).ButtonDown += () => OnBuildButtonClick((int)((Button)child).GetMeta("buttonIndex") );
 				if (_availableBuildings.Count > i)
 				{
-					((Button)child).Icon = _availableBuildings[i].icon;
-				}
+					((Button)child).Icon = _availableBuildings[i].Icon;
+                    ((Button)child).Text = _availableBuildings[i].BuildingName;
+
+                }
 
 				i++;
 			}
 		}
-
 
         _buildMenuButton.Pressed += SelectBuildMenu;
 		_inventoryButton.Pressed += SelectInventory;
@@ -89,17 +92,9 @@ public partial class ToolBar : VBoxContainer
         MeshInstance3D mesh = _tempItem.GetNode<MeshInstance3D>("Model");
         mesh.Mesh = _item?.Model;
         mesh.MaterialOverride = _tempItemMat;
+		_tempItemSize = mesh.GetAabb().Size;
         _drag = true;
     }
-
-  //  public override void _Input(InputEvent @event) // record mouse position
-  //  {
-  //      base._Input(@event);
-		//if (@event is InputEventMouseMotion eventMouse)
-		//{
-		//	_mousePosition = eventMouse.Position;
-		//}
-  //  }
 
 	void SelectBuildMenu()
 	{
@@ -115,7 +110,6 @@ public partial class ToolBar : VBoxContainer
 
     public override void _PhysicsProcess(double delta)
 	{
-		float rayLength = 500;
         _mousePosition = GetViewport().GetMousePosition();
 
         if (_inventoryBar.Visible)
@@ -136,22 +130,12 @@ public partial class ToolBar : VBoxContainer
 						MeshInstance3D mesh = _tempItem.GetNode<MeshInstance3D>("Model");
 						mesh.Mesh = _item?.Model;
 						mesh.MaterialOverride = _tempItemMat;
-						_drag = true;
+                        _tempItemSize = mesh.GetAabb().Size;
+                        _drag = true;
 					}
 
                     // move the placeholder object wherever the mouse is pointing
                     MoveObjectPlacement();
-
-                    //var spaceState = _tempItem.GetWorld3D().DirectSpaceState;
-                    //var origin = GameController.MainCamera?.ProjectRayOrigin(_mousePosition) ?? Vector3.Zero;
-                    //var end = (origin + GameController.MainCamera.ProjectRayNormal(_mousePosition) * rayLength);
-                    //var query = PhysicsRayQueryParameters3D.Create(origin, end);
-                    //var result = spaceState.IntersectRay(query);
-                    //Vector3 position = (Vector3)result["position"];
-
-                    //// move our position along the collision normal half a block so we aren't intersecting stuff (hopefully)
-                    //position += (Vector3)result["normal"] * 0.6f;
-                    //_tempItem.GlobalPosition = position;
                 }
 			}
 			else if (_buttonTimer > 0)
@@ -163,11 +147,34 @@ public partial class ToolBar : VBoxContainer
 					GameController.MainPlayer.RemoveObject(_selectedButton);
                     _inventorybuttons[_selectedButton].Icon = null;
 
+					// check if we are over another inventory slot
+					foreach (Button button in _inventorybuttons)
+					{
+						Vector2 mousePos = button.GetGlobalMousePosition();
+						Vector2 buttonPos = button.GlobalPosition + button.Size / 2;
+                        if (Mathf.Abs(mousePos.X - buttonPos.X) < button.Size.X/2 && Mathf.Abs(mousePos.Y - buttonPos.Y) < button.Size.Y / 2)
+						{
+							GD.Print("place in slot " + _inventorybuttons.IndexOf(button));
+							// attempt to place in new slot
+							if (GameController.MainPlayer.PickUpObject((CollectableResource)_item,_inventorybuttons.IndexOf(button)))
+							{
+								goto ITEMCLEANUP; // C# or QBASIC?? - Skip creating new object instance and go to the part where we delete the placeholder
+							}
+						}
+						else
+						{
+							GD.Print("mouse at " + mousePos + " outside bounds of button " + _inventorybuttons.IndexOf(button) + " at " + buttonPos + " +/- " + button.Size);
+						}
+
+                    }
+
                     // attempt to place item in world
                     Collectable newObject = new Collectable();
 					newObject.SetItem((CollectableResource)_item);
 					_worldScene.AddChild(newObject);
 					newObject.GlobalPosition = _tempItem.GlobalPosition;
+
+					ITEMCLEANUP:
 					_drag = false;
 					// kill our placeholder
 					_tempItem.QueueFree();
@@ -185,8 +192,10 @@ public partial class ToolBar : VBoxContainer
 			if (_item is BuildingResource)
 			{
 				MoveObjectPlacement();
-				// snap to grid
-				_tempItem.GlobalPosition = new Vector3(Mathf.Round(_tempItem.GlobalPosition.X/4)*4, _tempItem.GlobalPosition.Y, Mathf.Round(_tempItem.GlobalPosition.Z/4)*4);
+				// snap to "grid"
+				_tempItem.GlobalPosition = new Vector3(Mathf.Floor((_tempItem.GlobalPosition.X)/_gridSize)* _gridSize, Mathf.Round((_tempItem.GlobalPosition.Y)/_gridSize)*_gridSize + _tempItemSize.Y / 2, Mathf.Floor((_tempItem.GlobalPosition.Z)/_gridSize)*_gridSize);
+				// we have snapped the center of our building to the grid, but we want to line up the edges
+				_tempItem.GlobalPosition += new Vector3((_tempItemSize.X / 2) % _gridSize, 0, (_tempItemSize.Z / 2) % _gridSize);
 
 				if (_drag) //first click not released
 				{
@@ -224,8 +233,11 @@ public partial class ToolBar : VBoxContainer
         var result = spaceState.IntersectRay(query);
         Vector3 position = (Vector3)result["position"];
 
-        // move our position along the collision normal half a block so we aren't intersecting stuff (hopefully)
-        position += (Vector3)result["normal"] * 0.6f;
+		// move our position along the collision normal half a block so we aren't intersecting stuff (hopefully)
+		if (_item is CollectableResource)
+		{
+			position += (Vector3)result["normal"] * 0.6f;
+		}
         _tempItem.GlobalPosition = position;
     }
 }

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=4 format=3 uid="uid://bh4lihcod70n0"]
+
+[ext_resource type="Texture2D" uid="uid://bbn0kr7m3mbwk" path="res://Art/Sprites/blue_body_square.png" id="1_l1ujf"]
+[ext_resource type="Script" path="res://Scripts/Items/BuildingResource.cs" id="2_afny1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cglry"]
+size = Vector3(8, 4, 8)
+
+[resource]
+script = ExtResource("2_afny1")
+Icon = ExtResource("1_l1ujf")
+ObjectMesh = SubResource("BoxMesh_cglry")
+BuildingName = "8 x 8"

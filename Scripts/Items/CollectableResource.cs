@@ -4,23 +4,23 @@ using System;
 [GlobalClass]
 public partial class CollectableResource : Resource, IDraggable
 {
-	[Export] public Texture2D icon;
-	[Export] public Mesh model;
-	public float health = 10;
+    [Export] public Texture2D Icon;
+    [Export] public Mesh ObjectMesh;
+    public float Health = 10;
 
-    public Mesh Model { get => model; }
+    public Mesh Model { get => ObjectMesh; }
 
     public CollectableResource()
 	{
-		icon = null;
-		model = null;
-		health = 10;
+        Icon = null;
+        ObjectMesh = null;
+        Health = 10;
 	}
 	public CollectableResource(CollectableResource original)
 	{
-		icon = original.icon;
-		health = original.health;
-		model = original.model;
+        Icon = original.Icon;
+        Health = original.Health;
+        ObjectMesh = original.Model;
 	}
 
 	public CollectableResource newInstance()

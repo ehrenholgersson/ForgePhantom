@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="CollectableResource" load_steps=4 format=3 uid="uid://cjbjnnqu2uo8a"]
 
-[ext_resource type="Texture2D" uid="uid://f0pj360owml6" path="res://Art/Textures/Kenny/blue_body_circle.png" id="1_s6oll"]
+[ext_resource type="Texture2D" uid="uid://f0pj360owml6" path="res://Art/Sprites/blue_body_circle.png" id="1_s6oll"]
 [ext_resource type="Script" path="res://Scripts/Items/CollectableResource.cs" id="2_14mrb"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_4claa"]
+[sub_resource type="SphereMesh" id="SphereMesh_i0ych"]
 
 [resource]
 script = ExtResource("2_14mrb")
-icon = ExtResource("1_s6oll")
-model = SubResource("SphereMesh_4claa")
+Icon = ExtResource("1_s6oll")
+ObjectMesh = SubResource("SphereMesh_i0ych")

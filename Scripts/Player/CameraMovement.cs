@@ -4,28 +4,29 @@ using System.Linq.Expressions;
 
 public partial class CameraMovement : Camera3D
 {
+
 	[Export] Node3D focus;
 	[Export] Vector2 mouse_sensitivity;
-	[Export] float zoom_speed;
-	[Export] bool invert_mouse = true;
-	[Export] float max_zoom;
-	[Export] float min_zoom;
-	[Export] float camera_angle = 60;
-	[Export] float camera_rotation = 0;
-	[Export] float camera_distance = 10;
-	[Export] bool allow_camera_rotation = true;	
-	[Export] bool allow_camera_tilt = true;
-	[Export] bool allow_zoom = true;
-	float zoom_input;
-	Vector2 last_mouse_position = Vector2.Zero;
-	Vector2 mouse_velocity = Vector2.Zero;
-	public Vector3 Camera_Forwards {get => (GlobalTransform.Basis.Z - GlobalTransform.Basis.Z.Project(Basis.Identity.Y)).Normalized();} // camera facing direction without any Y component - for player movement direction
-	public float Camera_Rotation {get => camera_rotation; }
-	int mouse_inversion 
+	[Export] float zoomSpeed;
+	[Export] bool invertMouse = true;
+	[Export(PropertyHint.Range, "5,100,")] float maxZoom;
+    [Export(PropertyHint.Range, "5,100,")] float minZoom;
+	[Export(PropertyHint.Range, "5,85,")] float cameraAngle = 60;
+	[Export(PropertyHint.Range, "0,359,")] float cameraRotation = 0;
+	[Export(PropertyHint.Range, "5,100,")] float cameraDistance = 10;
+	[Export] bool allowCameraRotation = true;	
+	[Export] bool allowCameraTilt = true;
+	[Export] bool allowZoom = true;
+	float zoomInput;
+	Vector2 lastMousePosition = Vector2.Zero;
+	Vector2 mouseVelocity = Vector2.Zero;
+	public Vector3 CameraForwards {get => (GlobalTransform.Basis.Z - GlobalTransform.Basis.Z.Project(Basis.Identity.Y)).Normalized();} // camera facing direction without any Y component - for player movement direction
+	public float CameraRotation {get => cameraRotation; }
+	int MouseInversion 
 	{ 
 		get 
 		{
-			if (invert_mouse)
+			if (invertMouse)
 			{
 				return -1;
 			}
@@ -42,18 +43,18 @@ public partial class CameraMovement : Camera3D
 
 	public void RotateCamera(float angle)
 	{
-		camera_rotation += angle;
+		cameraRotation += angle;
 	}
 		public void PitchCamera(float angle)
 	{
-		camera_angle += angle;
+		cameraAngle += angle;
 	}
 
 	public override void _Input(InputEvent @event)
 {
     if (@event is InputEventMouseMotion mouseEvent)
 	{
-        mouse_velocity = mouseEvent.Relative;
+        mouseVelocity = mouseEvent.Relative;
 	}
 	else if (@event is InputEventMouseButton mouseButton)
 	{
@@ -61,11 +62,11 @@ public partial class CameraMovement : Camera3D
 		{
 			if (mouseButton.ButtonIndex == MouseButton.WheelDown)
 			{
-				zoom_input = 1;
+				zoomInput = 1;
 			}
 			else if (mouseButton.ButtonIndex == MouseButton.WheelUp)
 			{
-				zoom_input = -1;
+				zoomInput = -1;
 			}
 		}
 	}
@@ -74,52 +75,48 @@ public partial class CameraMovement : Camera3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if (PlayerController.Control == PlayerController.ControlMode.Mixed)
+		{
+
+			if (Input.IsActionJustPressed("camera_modifier"))
+			{
+				Input.MouseMode = Input.MouseModeEnum.Captured;
+			}
+			else if (Input.IsActionJustReleased("camera_modifier"))
+			{
+                Input.MouseMode = Input.MouseModeEnum.Visible;
+            }
+		}
+
 		//take inputs to modify values for camera angle and rotation
-		if (PlayerController.controlMode==PlayerController.ControlMode.player)//Input.IsActionPressed("camera_modifier"))
+		if (PlayerController.Control==PlayerController.ControlMode.Player || (PlayerController.Control == PlayerController.ControlMode.Mixed && Input.IsActionPressed("camera_modifier")))
 		{
-			//if (Input.IsActionJustPressed("camera_modifier"))
-			//{
-			//Input.MouseMode = Input.MouseModeEnum.Captured;
-			//}
-			if (allow_camera_rotation)
+
+			if (allowCameraRotation)
 			{
-				RotateCamera(mouse_velocity.X * (float)delta * mouse_sensitivity.X);
+				RotateCamera(mouseVelocity.X * (float)delta * mouse_sensitivity.X);
 			}
-			if (allow_camera_tilt)
+			if (allowCameraTilt)
 			{
-				PitchCamera(mouse_velocity.Y * (float)delta * mouse_sensitivity.Y* mouse_inversion);
+				PitchCamera(mouseVelocity.Y * (float)delta * mouse_sensitivity.Y* MouseInversion);
 			}
 		}
-		if (Input.IsActionJustReleased("camera_modifier"))
-		{
-			Input.MouseMode = Input.MouseModeEnum.Visible;
-		}
-
-		// take zoom inputs based on mouse wheel, doesn't work for some reason?
-		//if (Input.IsMouseButtonPressed(MouseButton.WheelUp))
-		//{	
-		//	zoom = zoom_speed*-(float)delta;
-		//}	
-		//else if (Input.IsMouseButtonPressed(MouseButton.WheelDown))
-		//{
-		//	zoom = zoom_speed*(float)delta;
-		//}
-
-		zoom_input *= (float)delta*zoom_speed;
+		
 		// update stored values
-		if (allow_zoom)
+		if (allowZoom)
 		{
-			camera_distance = Mathf.Clamp(camera_distance + zoom_input, min_zoom,max_zoom);
+            zoomInput *= (float)delta * zoomSpeed;
+            cameraDistance = Mathf.Clamp(cameraDistance + zoomInput, minZoom,maxZoom);
 		}
-		camera_angle = Mathf.Clamp(camera_angle, 5f,85f);
-		camera_rotation = camera_rotation % 360;
+		cameraAngle = Mathf.Clamp(cameraAngle, 5f,85f);
+		cameraRotation = cameraRotation % 360;
 		
 		// apply to camera position and rotation
 		// the below works but feels slightly jank
-		GlobalPosition = focus?.Position + (new Vector3(0,Mathf.Tan(Mathf.DegToRad(camera_angle)),1) * Quaternion.FromEuler(new Vector3(0,Mathf.DegToRad(camera_rotation),0))).Normalized() * camera_distance ?? GlobalPosition; 
+		GlobalPosition = focus?.Position + (new Vector3(0,Mathf.Tan(Mathf.DegToRad(cameraAngle)),1) * Quaternion.FromEuler(new Vector3(0,Mathf.DegToRad(cameraRotation),0))).Normalized() * cameraDistance ?? GlobalPosition; 
 		LookAt(focus?.Position ?? Vector3.Zero, Basis.Identity.Y,false);
 		// reset mouse velocity value as this only updates when the mouse moves, should be zero whenever its not updating
-		 mouse_velocity = Vector2.Zero;
-		 zoom_input = 0;
+		 mouseVelocity = Vector2.Zero;
+		 zoomInput = 0;
 	}
 }

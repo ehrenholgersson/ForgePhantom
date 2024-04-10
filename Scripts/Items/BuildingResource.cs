@@ -4,27 +4,30 @@ using System;
 [GlobalClass]
 public partial class BuildingResource : Resource, IDraggable
 {
-    [Export] public Texture2D icon;
-    [Export] public Mesh model;
-    public float health = 10;
+    [Export] public Texture2D Icon;
+    [Export] public Mesh ObjectMesh;
+    [Export] public string BuildingName;
+    public float Health = 10;
 
-    public Mesh Model { get => model; }
+    public Mesh Model { get => ObjectMesh; }
 
     public BuildingResource()
     {
-        icon = null;
-        model = null;
-        health = 10;
+        BuildingName = string.Empty;
+        Icon = null;
+        ObjectMesh = null;
+        Health = 10;
     }
     public BuildingResource(BuildingResource original)
     {
-        icon = original.icon;
-        health = original.health;
-        model = original.model;
+        Icon = original.Icon;
+        Health = original.Health;
+        ObjectMesh = original.Model;
+        BuildingName = original.BuildingName;
     }
 
     public BuildingResource newInstance()
     {
-        return new BuildingResource((BuildingResource)this);
+        return new BuildingResource(this);
     }
 }

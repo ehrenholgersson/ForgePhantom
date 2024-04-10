@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://lhy3nyrrodry"]
+[gd_scene load_steps=26 format=3 uid="uid://lhy3nyrrodry"]
 
 [ext_resource type="Script" path="res://Scripts/General/GameController.cs" id="1_646sc"]
 [ext_resource type="Texture2D" uid="uid://boharu6plmbfy" path="res://Art/Textures/Kenny/Dark/texture_05.png" id="1_dfp26"]
@@ -8,7 +8,11 @@
 [ext_resource type="Script" path="res://Scripts/Items/Collectable.cs" id="5_rq771"]
 [ext_resource type="PackedScene" uid="uid://d3v0wdpxcc3ue" path="res://Scenes/Prefabs/drag_item.tscn" id="6_1lg6w"]
 [ext_resource type="Resource" uid="uid://cjbjnnqu2uo8a" path="res://Resources/TestItem.tres" id="6_ymbuk"]
-[ext_resource type="Resource" uid="uid://e2f67sfrefec" path="res://Resources/TestBuilding.tres" id="7_tfw4e"]
+[ext_resource type="Resource" uid="uid://e2f67sfrefec" path="res://Resources/Buildings/TestBuilding.tres" id="7_tfw4e"]
+[ext_resource type="Resource" uid="uid://cplhrct6ei0mx" path="res://Resources/Buildings/2x2Building.tres" id="8_t6a6r"]
+[ext_resource type="Resource" uid="uid://d0xgiqptc26b5" path="res://Resources/Buildings/4x4Building.tres" id="9_5d188"]
+[ext_resource type="Resource" uid="uid://bh4lihcod70n0" path="res://Resources/Buildings/8x8Building.tres" id="9_810hy"]
+[ext_resource type="Resource" uid="uid://b0ecs3f1oryqk" path="res://Resources/Buildings/Ramp.tres" id="11_by22g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04vd0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -76,6 +80,7 @@ shape = SubResource("BoxShape3D_rgt1j")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.36089, 0)
 script = ExtResource("1_gjvdr")
 _camera = NodePath("../Camera3D")
+_enabledModes = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_xou06")
@@ -103,14 +108,12 @@ transform = Transform3D(0.829886, -0.270415, 0.488022, 0, 0.874696, 0.484672, -0
 v_offset = -1.8
 script = ExtResource("2_751fy")
 focus = NodePath("../Player")
-mouse_sensitivity = Vector2(20, 20)
-zoom_speed = 30.0
-max_zoom = 30.0
-min_zoom = 6.0
-camera_angle = 30.0
-camera_rotation = 45.0
-camera_distance = 15.0
-allow_camera_tilt = false
+mouse_sensitivity = Vector2(15, 15)
+zoomSpeed = 30.0
+maxZoom = 40.0
+minZoom = 6.0
+cameraAngle = 50.0
+cameraDistance = 15.0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -135,13 +138,15 @@ offset_bottom = -0.203979
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_24wj0")
+_buttonHeldTime = 0.1
 _itemDragPrefab = ExtResource("6_1lg6w")
 _buildMenuButton = NodePath("HBoxContainer2/Button2")
 _inventoryButton = NodePath("HBoxContainer2/Button")
 _inventoryBar = NodePath("Inventory")
 _buildMenu = NodePath("BuildMenu")
 _worldScene = NodePath("../..")
-_availableBuildings = [ExtResource("7_tfw4e")]
+_gridSize = 1.0
+_availableBuildings = [ExtResource("7_tfw4e"), ExtResource("8_t6a6r"), ExtResource("9_5d188"), ExtResource("9_810hy"), ExtResource("11_by22g")]
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -215,41 +220,57 @@ size_flags_vertical = 3
 [node name="Button" type="Button" parent="Control/VBoxContainer/BuildMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
+icon_alignment = 1
+expand_icon = true
 metadata/buttonIndex = 0
 
 [node name="Button2" type="Button" parent="Control/VBoxContainer/BuildMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
+icon_alignment = 1
+expand_icon = true
 metadata/buttonIndex = 1
 
 [node name="Button3" type="Button" parent="Control/VBoxContainer/BuildMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
+icon_alignment = 1
+expand_icon = true
 metadata/buttonIndex = 2
 
 [node name="Button4" type="Button" parent="Control/VBoxContainer/BuildMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
+icon_alignment = 1
+expand_icon = true
 metadata/buttonIndex = 3
 
 [node name="Button5" type="Button" parent="Control/VBoxContainer/BuildMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
+icon_alignment = 1
+expand_icon = true
 metadata/buttonIndex = 4
 
 [node name="Button6" type="Button" parent="Control/VBoxContainer/BuildMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
+icon_alignment = 1
+expand_icon = true
 metadata/buttonIndex = 5
 
 [node name="Button7" type="Button" parent="Control/VBoxContainer/BuildMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
+icon_alignment = 1
+expand_icon = true
 metadata/buttonIndex = 6
 
 [node name="Button8" type="Button" parent="Control/VBoxContainer/BuildMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
+icon_alignment = 1
+expand_icon = true
 metadata/buttonIndex = 7
 
 [node name="Collectable2" type="RigidBody3D" parent="."]

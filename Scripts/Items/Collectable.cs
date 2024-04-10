@@ -33,16 +33,13 @@ public partial class Collectable : RigidBody3D, IInteractable
 		}
 		if (_item != null)
 		{
-			_meshInstance.Mesh = _item.model;
+			_meshInstance.Mesh = _item.ObjectMesh;
 			_meshInstance.CreateConvexCollision(true,true);
-            GD.Print(_meshInstance.Name + '/' + _meshInstance.GetChild(0).Name + '/'+ _meshInstance.GetChild(0).GetChild(0).Name);
             _collider = GetNode<CollisionShape3D>("Model/Model_col/CollisionShape3D");
 			_collider.GetParent().RemoveChild(_collider);
 			AddChild(_collider);
 			GetNode("Model/Model_col")?.QueueFree();
 		}
-		GD.Print("Health is "+_item.health);
-		_item.health = _rng.RandiRange(0, 30);
 	}
 
 	public void SetItem(CollectableResource itm)

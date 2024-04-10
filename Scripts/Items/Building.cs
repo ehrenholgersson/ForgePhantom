@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Building : RigidBody3D
+public partial class Building : StaticBody3D
 {
     [Export] BuildingResource _resource;
     MeshInstance3D _meshInstance;
@@ -24,7 +24,7 @@ public partial class Building : RigidBody3D
         }
         if (_resource != null)
         {
-            _meshInstance.Mesh = _resource.model;
+            _meshInstance.Mesh = _resource.Model;
             _meshInstance.CreateConvexCollision(true, true);
             GD.Print(_meshInstance.Name + '/' + _meshInstance.GetChild(0).Name + '/' + _meshInstance.GetChild(0).GetChild(0).Name);
             _collider = GetNode<CollisionShape3D>("Model/Model_col/CollisionShape3D");
