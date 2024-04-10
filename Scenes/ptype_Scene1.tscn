@@ -114,6 +114,7 @@ maxZoom = 40.0
 minZoom = 6.0
 cameraAngle = 50.0
 cameraDistance = 15.0
+allowCameraTilt = false
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

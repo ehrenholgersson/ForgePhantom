@@ -191,11 +191,27 @@ public partial class ToolBar : VBoxContainer
 		{
 			if (_item is BuildingResource)
 			{
+				// feel like there is a neater way to do this
+				//Get a vector3 where each axis is +/- 1 depending on the direction from the placeholder item to the camera
+				Vector3 cameraDirection = _tempItem.GlobalPosition - GameController.MainCamera.GlobalPosition;
+				if (cameraDirection.X != 0)
+				{
+					cameraDirection.X /= MathF.Abs(cameraDirection.X);
+				}
+				if (cameraDirection.Y != 0)
+				{
+					cameraDirection.Y /= MathF.Abs(cameraDirection.Y);
+				}
+				if (cameraDirection.Z != 0)
+				{
+					cameraDirection.Z /= MathF.Abs(cameraDirection.Z);
+				}
+
 				MoveObjectPlacement();
 				// snap to "grid"
-				_tempItem.GlobalPosition = new Vector3(Mathf.Floor((_tempItem.GlobalPosition.X)/_gridSize)* _gridSize, Mathf.Round((_tempItem.GlobalPosition.Y)/_gridSize)*_gridSize + _tempItemSize.Y / 2, Mathf.Floor((_tempItem.GlobalPosition.Z)/_gridSize)*_gridSize);
+				//_tempItem.GlobalPosition = new Vector3(Mathf.Floor((_tempItem.GlobalPosition.X)/_gridSize)* _gridSize, Mathf.Round((_tempItem.GlobalPosition.Y)/_gridSize)*_gridSize + _tempItemSize.Y / 2, Mathf.Floor((_tempItem.GlobalPosition.Z)/_gridSize)*_gridSize);
 				// we have snapped the center of our building to the grid, but we want to line up the edges
-				_tempItem.GlobalPosition += new Vector3((_tempItemSize.X / 2) % _gridSize, 0, (_tempItemSize.Z / 2) % _gridSize);
+//				_tempItem.GlobalPosition += new Vector3((_tempItemSize.X / 2) % _gridSize, 0, (_tempItemSize.Z / 2) % _gridSize);
 
 				if (_drag) //first click not released
 				{
@@ -238,6 +254,50 @@ public partial class ToolBar : VBoxContainer
 		{
 			position += (Vector3)result["normal"] * 0.6f;
 		}
+		// or snap building to grid, adjusting position based on the collision normal and mesh size
+		else if (_item is BuildingResource) 
+		{
+			Vector3 normal = (Vector3)result["normal"];
+
+            // feel like there is a neater way to do this
+            //Get a vector3 where each axis is +/- 1 depending on the direction from the placeholder item to the camera
+            Vector3 cameraDirection =  GameController.MainCamera.GlobalPosition - _tempItem.GlobalPosition;
+            if (cameraDirection.X != 0)
+            {
+                cameraDirection.X /= MathF.Abs(cameraDirection.X);
+            }
+            if (cameraDirection.Y != 0)
+            {
+                cameraDirection.Y /= MathF.Abs(cameraDirection.Y);
+            }
+            if (cameraDirection.Z != 0)
+            {
+                cameraDirection.Z /= MathF.Abs(cameraDirection.Z);
+				GD.Print("Z "+cameraDirection.Z);
+            }
+			GD.Print(normal);
+
+            if (MathF.Abs(normal.X) > MathF.Abs(normal.Y) && MathF.Abs(normal.X) > MathF.Abs(normal.Z))
+			{
+                position = new Vector3(Mathf.Round((position.X) / _gridSize) * _gridSize + _tempItemSize.X / 2 * cameraDirection.X, Mathf.Floor((position.Y) / _gridSize) * _gridSize, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
+                position += new Vector3(0, (_tempItemSize.Y / 2) % _gridSize, (_tempItemSize.Z / 2) % _gridSize);
+            }
+			else if (MathF.Abs(normal.Y) > MathF.Abs(normal.Z))
+			{
+                position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Round((position.Y) / _gridSize) * _gridSize + _tempItemSize.Y / 2 * cameraDirection.Y, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
+                position += new Vector3((_tempItemSize.X / 2) % _gridSize, 0, (_tempItemSize.Z / 2) % _gridSize);
+            }
+			else
+			{
+				position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Floor((position.Y) / _gridSize) * _gridSize, Mathf.Round((position.Z) / _gridSize) * _gridSize + (_tempItemSize.Z / 2) * cameraDirection.Z);
+                position += new Vector3((_tempItemSize.X / 2) % _gridSize, (_tempItemSize.Y / 2) % _gridSize, 0);
+            }
+            // this is cheating as we know the ground is at 0, OK for a quick prototype
+			if (position.Y -_tempItemSize.Y/2 < 0 )
+			{
+				position.Y = _tempItemSize.Y/2;
+			}
+        }
         _tempItem.GlobalPosition = position;
     }
 }
