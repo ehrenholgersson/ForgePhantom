@@ -26,9 +26,7 @@ public partial class Collectable : RigidBody3D, IInteractable
 		if (_meshInstance == null)
 		{
 			_meshInstance = new MeshInstance3D();
-			_meshInstance.Name = "Model";
-			GD.Print(_meshInstance.Name);
-			
+			_meshInstance.Name = "Model";		
 			AddChild(_meshInstance);
 		}
 		if (_item != null)

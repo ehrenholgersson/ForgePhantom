@@ -127,7 +127,7 @@ offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control" node_paths=PackedStringArray("_buildMenuButton", "_inventoryButton", "_inventoryBar", "_buildMenu", "_worldScene")]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" node_paths=PackedStringArray("_buildMenuButton", "_inventoryButton", "_inventoryBar", "_buildMenu", "_worldScene", "_colorPicker")]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.706
@@ -147,6 +147,7 @@ _inventoryBar = NodePath("Inventory")
 _buildMenu = NodePath("BuildMenu")
 _worldScene = NodePath("../..")
 _gridSize = 1.0
+_colorPicker = NodePath("BuildMenu/ColorPicker")
 _availableBuildings = [ExtResource("7_tfw4e"), ExtResource("8_t6a6r"), ExtResource("9_5d188"), ExtResource("9_810hy"), ExtResource("11_by22g")]
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
@@ -161,6 +162,7 @@ layout_mode = 2
 text = "Build"
 
 [node name="Inventory" type="HBoxContainer" parent="Control/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -210,69 +212,87 @@ expand_icon = true
 [node name="Button8" type="Button" parent="Control/VBoxContainer/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
 
-[node name="BuildMenu" type="HBoxContainer" parent="Control/VBoxContainer"]
-visible = false
+[node name="BuildMenu" type="Control" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+[node name="Buttons" type="HBoxContainer" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -299.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 icon_alignment = 1
 expand_icon = true
 metadata/buttonIndex = 0
 
-[node name="Button2" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+[node name="Button2" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 icon_alignment = 1
 expand_icon = true
 metadata/buttonIndex = 1
 
-[node name="Button3" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+[node name="Button3" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 icon_alignment = 1
 expand_icon = true
 metadata/buttonIndex = 2
 
-[node name="Button4" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+[node name="Button4" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 icon_alignment = 1
 expand_icon = true
 metadata/buttonIndex = 3
 
-[node name="Button5" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+[node name="Button5" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 icon_alignment = 1
 expand_icon = true
 metadata/buttonIndex = 4
 
-[node name="Button6" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+[node name="Button6" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 icon_alignment = 1
 expand_icon = true
 metadata/buttonIndex = 5
 
-[node name="Button7" type="Button" parent="Control/VBoxContainer/BuildMenu"]
+[node name="Button7" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
 icon_alignment = 1
 expand_icon = true
 metadata/buttonIndex = 6
 
-[node name="Button8" type="Button" parent="Control/VBoxContainer/BuildMenu"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-metadata/buttonIndex = 7
+[node name="ColorPicker" type="ColorPicker" parent="Control/VBoxContainer/BuildMenu"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -297.0
+offset_top = 21.0001
+offset_right = 1.0
+offset_bottom = 21.0001
+grow_horizontal = 0
+grow_vertical = 2
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
 
 [node name="Collectable2" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.79502, 13.8128)

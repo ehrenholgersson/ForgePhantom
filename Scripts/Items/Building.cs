@@ -18,20 +18,26 @@ public partial class Building : StaticBody3D
         {
             _meshInstance = new MeshInstance3D();
             _meshInstance.Name = "Model";
-            GD.Print(_meshInstance.Name);
-
             AddChild(_meshInstance);
         }
         if (_resource != null)
         {
             _meshInstance.Mesh = _resource.Model;
             _meshInstance.CreateConvexCollision(true, true);
-            GD.Print(_meshInstance.Name + '/' + _meshInstance.GetChild(0).Name + '/' + _meshInstance.GetChild(0).GetChild(0).Name);
             _collider = GetNode<CollisionShape3D>("Model/Model_col/CollisionShape3D");
             _collider.GetParent().RemoveChild(_collider);
             AddChild(_collider);
             GetNode("Model/Model_col")?.QueueFree();
         }
+    }
+
+    public void SetColor(Color col)
+    {
+        //_meshInstance.Mesh.SurfaceGetMaterial(0).alb
+        StandardMaterial3D material = new StandardMaterial3D();
+
+        material.AlbedoColor = col;
+        _meshInstance.MaterialOverride = material;
     }
 
     public void SetResource(BuildingResource res)

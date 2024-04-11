@@ -13,6 +13,7 @@ public partial class ToolBar : VBoxContainer
     [Export] Control _buildMenu;
     [Export] Node _worldScene;
 	[Export] float _gridSize;
+	[Export] ColorPicker _colorPicker;
 
     float _buttonTimer = 0;
 
@@ -26,13 +27,13 @@ public partial class ToolBar : VBoxContainer
 
 	Node3D _tempItem;
 	Material _tempItemMat;
-	Vector2 _mousePosition;
-	Vector3 _tempItemSize;
 
-	public int number(int theNumber)
-	{
-		return theNumber;
-	}
+	Vector2 _mousePosition;
+	Vector2 _lastMousePosition;
+    Vector2 _mouseVelocity = Vector2.Zero;
+    Vector3 _tempItemSize;
+	float _inputRotation;
+	float _tempItemRotation;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -50,7 +51,7 @@ public partial class ToolBar : VBoxContainer
 		}
 
 			int i = 0;
-		foreach (Node child in GetNode("BuildMenu").GetChildren())
+		foreach (Node child in GetNode("BuildMenu/Buttons").GetChildren())
 		{
 
 			if (child is Button)
@@ -72,7 +73,15 @@ public partial class ToolBar : VBoxContainer
         _tempItemMat = GD.Load("res://Art/Materials/Translucent.tres") as Material;
     }
 
-	public void OnInventoryButtonClick(int index)
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseMotion mouseEvent)
+		{
+			_mouseVelocity = mouseEvent.Relative;
+		}
+	}
+
+        public void OnInventoryButtonClick(int index)
 	{
 		GD.Print("pressed button " + index);
         _buttonTimer = Time.GetTicksMsec() + _buttonHeldTime * 1000; // convert sec to msec
@@ -93,6 +102,15 @@ public partial class ToolBar : VBoxContainer
         mesh.Mesh = _item?.Model;
         mesh.MaterialOverride = _tempItemMat;
 		_tempItemSize = mesh.GetAabb().Size;
+		// "Rotate" the size to match our eventual basis
+        if (Mathf.Abs(_tempItemRotation) == 90 || Mathf.Abs(_tempItemRotation) == 270)
+        {
+            float X = _tempItemSize.X;
+            _tempItemSize.X = _tempItemSize.Y;
+            _tempItemSize.Z = X;
+        }
+        GD.Print("size is " + _tempItemSize);
+		GD.Print("rotation is " + _tempItemRotation);
         _drag = true;
     }
 
@@ -123,7 +141,6 @@ public partial class ToolBar : VBoxContainer
 					// spawn a placeholder object if not already done
 					if (!_drag)
 					{
-						
 						//tempItem = itemDragPrefab.Instantiate() as Node3D;
 						_worldScene.AddChild(_itemDragPrefab.Instantiate());
 						_tempItem = _worldScene.GetNode("Drag_Item") as Node3D;
@@ -131,6 +148,12 @@ public partial class ToolBar : VBoxContainer
 						mesh.Mesh = _item?.Model;
 						mesh.MaterialOverride = _tempItemMat;
                         _tempItemSize = mesh.GetAabb().Size;
+						if (_tempItemRotation == 90 || _tempItemRotation == 270)
+						{
+							float X = _tempItemSize.X;
+							_tempItemSize.X = _tempItemSize.Z;
+							_tempItemSize.Z = X;
+						}
                         _drag = true;
 					}
 
@@ -163,7 +186,7 @@ public partial class ToolBar : VBoxContainer
 						}
 						else
 						{
-							GD.Print("mouse at " + mousePos + " outside bounds of button " + _inventorybuttons.IndexOf(button) + " at " + buttonPos + " +/- " + button.Size);
+							//GD.Print("mouse at " + mousePos + " outside bounds of button " + _inventorybuttons.IndexOf(button) + " at " + buttonPos + " +/- " + button.Size);
 						}
 
                     }
@@ -184,34 +207,14 @@ public partial class ToolBar : VBoxContainer
 					// button was "clicked" and not held, select/equip item or whatever is appropriate
 				}
 				_item = null;
-				GD.Print("button released");
 			}
 		}
 		else if (_buildMenu.Visible)
 		{
 			if (_item is BuildingResource)
 			{
-				// feel like there is a neater way to do this
-				//Get a vector3 where each axis is +/- 1 depending on the direction from the placeholder item to the camera
-				Vector3 cameraDirection = _tempItem.GlobalPosition - GameController.MainCamera.GlobalPosition;
-				if (cameraDirection.X != 0)
-				{
-					cameraDirection.X /= MathF.Abs(cameraDirection.X);
-				}
-				if (cameraDirection.Y != 0)
-				{
-					cameraDirection.Y /= MathF.Abs(cameraDirection.Y);
-				}
-				if (cameraDirection.Z != 0)
-				{
-					cameraDirection.Z /= MathF.Abs(cameraDirection.Z);
-				}
 
 				MoveObjectPlacement();
-				// snap to "grid"
-				//_tempItem.GlobalPosition = new Vector3(Mathf.Floor((_tempItem.GlobalPosition.X)/_gridSize)* _gridSize, Mathf.Round((_tempItem.GlobalPosition.Y)/_gridSize)*_gridSize + _tempItemSize.Y / 2, Mathf.Floor((_tempItem.GlobalPosition.Z)/_gridSize)*_gridSize);
-				// we have snapped the center of our building to the grid, but we want to line up the edges
-//				_tempItem.GlobalPosition += new Vector3((_tempItemSize.X / 2) % _gridSize, 0, (_tempItemSize.Z / 2) % _gridSize);
 
 				if (_drag) //first click not released
 				{
@@ -228,6 +231,8 @@ public partial class ToolBar : VBoxContainer
                     newObject.SetResource((BuildingResource)_item);
                     _worldScene.AddChild(newObject);
                     newObject.GlobalPosition = _tempItem.GlobalPosition;
+					newObject.GlobalRotation = _tempItem.GlobalRotation;
+					newObject.SetColor(_colorPicker?.Color ?? new Color(1, 1, 1, 1));
                     _drag = false;
                     // kill our placeholder
                     _tempItem.QueueFree();
@@ -239,65 +244,68 @@ public partial class ToolBar : VBoxContainer
 
 	void MoveObjectPlacement()
 	{
-        float rayLength = 500;
+        if (Input.GetMouseButtonMask() == MouseButtonMask.Right)
+        {
+			float rotation;
 
-        // move the placeholder object wherever the mouse is pointing
-        var spaceState = _tempItem.GetWorld3D().DirectSpaceState;
-        var origin = GameController.MainCamera?.ProjectRayOrigin(_mousePosition) ?? Vector3.Zero;
-        var end = (origin + GameController.MainCamera.ProjectRayNormal(_mousePosition) * rayLength);
-        var query = PhysicsRayQueryParameters3D.Create(origin, end);
-        var result = spaceState.IntersectRay(query);
-        Vector3 position = (Vector3)result["position"];
+            _inputRotation += _mouseVelocity.X;
+            rotation = (Mathf.Round(_inputRotation / 90) * 90)%360;
+			if (rotation != _tempItemRotation)
+			{
+				// swap around our size values to match
+                float X = _tempItemSize.X;
+                _tempItemSize.X = _tempItemSize.Z;
+                _tempItemSize.Z = X;
 
-		// move our position along the collision normal half a block so we aren't intersecting stuff (hopefully)
-		if (_item is CollectableResource)
-		{
-			position += (Vector3)result["normal"] * 0.6f;
-		}
-		// or snap building to grid, adjusting position based on the collision normal and mesh size
-		else if (_item is BuildingResource) 
-		{
-			Vector3 normal = (Vector3)result["normal"];
-
-            // feel like there is a neater way to do this
-            //Get a vector3 where each axis is +/- 1 depending on the direction from the placeholder item to the camera
-            Vector3 cameraDirection =  GameController.MainCamera.GlobalPosition - _tempItem.GlobalPosition;
-            if (cameraDirection.X != 0)
-            {
-                cameraDirection.X /= MathF.Abs(cameraDirection.X);
-            }
-            if (cameraDirection.Y != 0)
-            {
-                cameraDirection.Y /= MathF.Abs(cameraDirection.Y);
-            }
-            if (cameraDirection.Z != 0)
-            {
-                cameraDirection.Z /= MathF.Abs(cameraDirection.Z);
-				GD.Print("Z "+cameraDirection.Z);
-            }
-			GD.Print(normal);
-
-            if (MathF.Abs(normal.X) > MathF.Abs(normal.Y) && MathF.Abs(normal.X) > MathF.Abs(normal.Z))
-			{
-                position = new Vector3(Mathf.Round((position.X) / _gridSize) * _gridSize + _tempItemSize.X / 2 * cameraDirection.X, Mathf.Floor((position.Y) / _gridSize) * _gridSize, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
-                position += new Vector3(0, (_tempItemSize.Y / 2) % _gridSize, (_tempItemSize.Z / 2) % _gridSize);
-            }
-			else if (MathF.Abs(normal.Y) > MathF.Abs(normal.Z))
-			{
-                position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Round((position.Y) / _gridSize) * _gridSize + _tempItemSize.Y / 2 * cameraDirection.Y, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
-                position += new Vector3((_tempItemSize.X / 2) % _gridSize, 0, (_tempItemSize.Z / 2) % _gridSize);
-            }
-			else
-			{
-				position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Floor((position.Y) / _gridSize) * _gridSize, Mathf.Round((position.Z) / _gridSize) * _gridSize + (_tempItemSize.Z / 2) * cameraDirection.Z);
-                position += new Vector3((_tempItemSize.X / 2) % _gridSize, (_tempItemSize.Y / 2) % _gridSize, 0);
-            }
-            // this is cheating as we know the ground is at 0, OK for a quick prototype
-			if (position.Y -_tempItemSize.Y/2 < 0 )
-			{
-				position.Y = _tempItemSize.Y/2;
+				_tempItemRotation = rotation;
+                _tempItem.GlobalRotationDegrees = new Vector3(0, _tempItemRotation, 0);
 			}
         }
-        _tempItem.GlobalPosition = position;
+        else
+        {
+			float rayLength = 500;
+
+            // move the placeholder object wherever the mouse is pointing
+            var spaceState = _tempItem.GetWorld3D().DirectSpaceState;
+			var origin = GameController.MainCamera?.ProjectRayOrigin(_mousePosition) ?? Vector3.Zero;
+			var end = (origin + GameController.MainCamera.ProjectRayNormal(_mousePosition) * rayLength);
+			var query = PhysicsRayQueryParameters3D.Create(origin, end);
+			var result = spaceState.IntersectRay(query);
+			Vector3 position = (Vector3)result["position"];
+
+			if (_item is CollectableResource)
+			{
+				// move our position along the collision normal half a block so we aren't intersecting stuff (hopefully)
+				position += (Vector3)result["normal"] * 0.6f;
+			}
+			else if (_item is BuildingResource)
+			{
+				//snap building to grid, adjusting position based on the ray intersection normal and mesh size
+				// On the normal axis of the ray intersection (the direction of the face we hit), we want to round to the closest value aligned with our grid, then pull back 1/2 the size of our item so that it doesn't clip through the floor/wall whatever
+				// for the other axis we are just rounding downward to the closest multiple of our grid size
+				Vector3 normal = (Vector3)result["normal"];
+				if (MathF.Abs(normal.X) > MathF.Abs(normal.Y) && MathF.Abs(normal.X) > MathF.Abs(normal.Z))
+				{
+					float normalDirection = (normal.X) / MathF.Abs(normal.X);
+					position = new Vector3(Mathf.Round((position.X) / _gridSize) * _gridSize + _tempItemSize.X / 2 * normalDirection, Mathf.Floor((position.Y) / _gridSize) * _gridSize, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
+					position += new Vector3(0, (_tempItemSize.Y / 2) % _gridSize, (_tempItemSize.Z / 2) % _gridSize);
+				}
+				else if (MathF.Abs(normal.Y) > MathF.Abs(normal.Z))
+				{
+					float normalDirection = (normal.Y) / MathF.Abs(normal.Y);
+					position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Round((position.Y) / _gridSize) * _gridSize + _tempItemSize.Y / 2 * normalDirection, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
+					position += new Vector3((_tempItemSize.X / 2) % _gridSize, 0, (_tempItemSize.Z / 2) % _gridSize);
+				}
+				else
+				{
+					float normalDirection = (normal.Z) / MathF.Abs(normal.Z);
+					position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Floor((position.Y) / _gridSize) * _gridSize, Mathf.Round((position.Z) / _gridSize) * _gridSize + (_tempItemSize.Z / 2) * normalDirection);
+					position += new Vector3((_tempItemSize.X / 2) % _gridSize, (_tempItemSize.Y / 2) % _gridSize, 0);
+				}
+			}
+            _tempItem.GlobalPosition = position;           
+            _inputRotation = _tempItemRotation;
+        }
+
     }
 }

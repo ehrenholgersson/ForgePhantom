@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Scripts",
+    "\\Scripts\\UI"
   ],
+  "SelectedNode": "\\Scripts\\UI\\ToolBar.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -38,17 +38,15 @@ public partial class PlayerController : CharacterBody3D
     {
         base._EnterTree();
 		Control = ControlMode.Player;
-		GD.Print(_enabledModes);
 		if ((int)_enabledModes == 0 || (int)_enabledModes > 7)
 		{
 			_enabledModes = (ControlMode)7;
 		}
 		while (!((_enabledModes & Control) == Control))
 		{
-            GD.Print(Control, _enabledModes);
             Control = (ControlMode)(((int)Control << 1) % 7);
 		}
-        GD.Print(Control, _enabledModes);
+        GD.Print("Selected control scheme: "+Control);
 
         if (Control == ControlMode.Player)
 		{
@@ -136,8 +134,8 @@ public partial class PlayerController : CharacterBody3D
                 Input.MouseMode = Input.MouseModeEnum.Visible;
                 _lockToCamera = false;
             }
-			GD.Print(Control, _enabledModes);
-		}
+            GD.Print("Selected control scheme: " + Control);
+        }
 
 		// Handle Jump.
 		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
@@ -195,7 +193,7 @@ public partial class PlayerController : CharacterBody3D
 		{
 			foreach (Node3D node in overlappers)
 			{
-				if (node is IInteractable && !node.IsQueuedForDeletion() && (!ignoreCurrentSelection||(node != _selectedObject)))// if we have just placed an object in our inventory, then the version of the object in the world will be queued for destruction after this frame, so we should ignore it
+				if (node is IInteractable && !node.IsQueuedForDeletion() && (!ignoreCurrentSelection||(node != _selectedObject)))// if we have just placed an object in our inventory, then the version of the object in the world will still actually exist at this point, so we should ignore it
 
                 {
                     // need to add some weighting system here based on dot product of player facing vs direction to object as well as distance to object

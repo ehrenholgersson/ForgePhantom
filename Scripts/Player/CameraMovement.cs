@@ -38,8 +38,11 @@ public partial class CameraMovement : Camera3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		GD.Print(" " + new Vector2(Mathf.Tan(Mathf.DegToRad(180)), 1).Normalized());
+        GD.Print(" " + new Vector2(Mathf.Tan(Mathf.DegToRad(60)), 1).Normalized());
 
-	}
+        GD.Print(" " + new Vector2(Mathf.Tan(Mathf.DegToRad(300)), 1).Normalized());
+    }
 
 	public void RotateCamera(float angle)
 	{
