@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\egore\\ForgePhantom\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\CameraMovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scripts\\Player\\CameraMovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scripts\\Player\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\egore\\ForgePhantom\\Scripts\\UI\\ToolBar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scripts\\UI\\ToolBar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -14,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,13 +38,39 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\PlayerController.cs",
+              "RelativeDocumentMoniker": "Scripts\\Player\\PlayerController.cs",
+              "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\PlayerController.cs",
+              "RelativeToolTip": "Scripts\\Player\\PlayerController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T21:25:20.542Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CameraMovement.cs",
+              "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\CameraMovement.cs",
+              "RelativeDocumentMoniker": "Scripts\\Player\\CameraMovement.cs",
+              "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\CameraMovement.cs",
+              "RelativeToolTip": "Scripts\\Player\\CameraMovement.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAADcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T21:13:11.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "ToolBar.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\UI\\ToolBar.cs",
               "RelativeDocumentMoniker": "Scripts\\UI\\ToolBar.cs",
               "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\UI\\ToolBar.cs",
               "RelativeToolTip": "Scripts\\UI\\ToolBar.cs",
-              "ViewState": "AQIAAHUAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAABsAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-10T22:22:02.341Z",
               "EditorCaption": ""

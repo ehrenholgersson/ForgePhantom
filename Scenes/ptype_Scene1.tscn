@@ -1,7 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://lhy3nyrrodry"]
+[gd_scene load_steps=23 format=3 uid="uid://lhy3nyrrodry"]
 
 [ext_resource type="Script" path="res://Scripts/General/GameController.cs" id="1_646sc"]
-[ext_resource type="Texture2D" uid="uid://boharu6plmbfy" path="res://Art/Textures/Kenny/Dark/texture_05.png" id="1_dfp26"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.cs" id="1_gjvdr"]
 [ext_resource type="Script" path="res://Scripts/Player/CameraMovement.cs" id="2_751fy"]
 [ext_resource type="Script" path="res://Scripts/UI/ToolBar.cs" id="5_24wj0"]
@@ -13,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://d0xgiqptc26b5" path="res://Resources/Buildings/4x4Building.tres" id="9_5d188"]
 [ext_resource type="Resource" uid="uid://bh4lihcod70n0" path="res://Resources/Buildings/8x8Building.tres" id="9_810hy"]
 [ext_resource type="Resource" uid="uid://b0ecs3f1oryqk" path="res://Resources/Buildings/Ramp.tres" id="11_by22g"]
+[ext_resource type="Script" path="res://Scripts/Environment/MeshGen.cs" id="14_sbool"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04vd0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,19 +27,6 @@ sky = SubResource("Sky_1ypft")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ixr15"]
-albedo_texture = ExtResource("1_dfp26")
-uv1_scale = Vector3(100, 100, 100)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_obylb"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33moi"]
-vertex_color_use_as_albedo = true
-albedo_color = Color(0, 0.298039, 0.0352941, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_rgt1j"]
-size = Vector3(1, 0.001, 1)
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xou06"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iiolw"]
@@ -50,6 +37,9 @@ albedo_color = Color(0.509804, 0.270588, 0.8, 0.509804)
 [sub_resource type="SphereMesh" id="SphereMesh_3as4g"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_w2i8p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_310v0"]
+albedo_color = Color(0.215686, 0.298039, 0.133333, 1)
 
 [node name="Scene" type="Node3D" node_paths=PackedStringArray("_player", "_camera")]
 script = ExtResource("1_646sc")
@@ -64,20 +54,9 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_81ia3")
 
-[node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0.000400603, -0.00236464, 0.000825405)
-material_override = SubResource("StandardMaterial3D_ixr15")
-mesh = SubResource("PlaneMesh_obylb")
-surface_material_override/0 = SubResource("StandardMaterial3D_33moi")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.000671387, -0.000109334, 0.00773705)
-shape = SubResource("BoxShape3D_rgt1j")
-
 [node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_camera")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.36089, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 83.6474, 0)
+floor_max_angle = 1.34739
 script = ExtResource("1_gjvdr")
 _camera = NodePath("../Camera3D")
 _enabledModes = 4
@@ -162,7 +141,6 @@ layout_mode = 2
 text = "Build"
 
 [node name="Inventory" type="HBoxContainer" parent="Control/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -214,6 +192,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="BuildMenu" type="Control" parent="Control/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -303,3 +282,8 @@ _item = ExtResource("6_ymbuk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63158, 13.0848, 13.8128)
 script = ExtResource("5_rq771")
 _item = ExtResource("6_ymbuk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, -10.5, -200)
+script = ExtResource("14_sbool")
+_material = SubResource("StandardMaterial3D_310v0")

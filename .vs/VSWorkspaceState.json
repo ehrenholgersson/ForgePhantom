@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Scripts",
+    "\\Scripts\\Player",
     "\\Scripts\\UI"
   ],
-  "SelectedNode": "\\Scripts\\UI\\ToolBar.cs",
+  "SelectedNode": "\\Scripts\\Player\\CameraMovement.cs",
   "PreviewInSolutionExplorer": false
 }
