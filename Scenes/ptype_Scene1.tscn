@@ -55,8 +55,8 @@ shadow_enabled = true
 environment = SubResource("Environment_81ia3")
 
 [node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("_camera")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 83.6474, 0)
-floor_max_angle = 1.34739
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+floor_max_angle = 1.0472
 script = ExtResource("1_gjvdr")
 _camera = NodePath("../Camera3D")
 _enabledModes = 4
