@@ -82,18 +82,12 @@ mesh = SubResource("SphereMesh_3as4g")
 transform = Transform3D(6.275, 0, 0, 0, 6.275, 0, 0, 0, 6.275, 0, 0.71, -0.955)
 shape = SubResource("SphereShape3D_w2i8p")
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("focus")]
-transform = Transform3D(0.829886, -0.270415, 0.488022, 0, 0.874696, 0.484672, -0.557933, -0.402223, 0.725898, 7.89538, 16.3977, 11.6064)
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("_focus")]
+transform = Transform3D(0.829886, -0.270415, 0.488022, 0, 0.874696, 0.484672, -0.557933, -0.402223, 0.725898, 176.015, 130.744, 11.6064)
 v_offset = -1.8
 script = ExtResource("2_751fy")
-focus = NodePath("../Player")
+_focus = NodePath("../Player")
 mouse_sensitivity = Vector2(15, 15)
-zoomSpeed = 30.0
-maxZoom = 40.0
-minZoom = 6.0
-cameraAngle = 50.0
-cameraDistance = 15.0
-allowCameraTilt = false
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
