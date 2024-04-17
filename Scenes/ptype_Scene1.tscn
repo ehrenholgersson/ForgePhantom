@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://lhy3nyrrodry"]
+[gd_scene load_steps=24 format=3 uid="uid://lhy3nyrrodry"]
 
 [ext_resource type="Script" path="res://Scripts/General/GameController.cs" id="1_646sc"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.cs" id="1_gjvdr"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://d0xgiqptc26b5" path="res://Resources/Buildings/4x4Building.tres" id="9_5d188"]
 [ext_resource type="Resource" uid="uid://bh4lihcod70n0" path="res://Resources/Buildings/8x8Building.tres" id="9_810hy"]
 [ext_resource type="Resource" uid="uid://b0ecs3f1oryqk" path="res://Resources/Buildings/Ramp.tres" id="11_by22g"]
+[ext_resource type="Resource" uid="uid://d1jvcttjye150" path="res://Resources/Buildings/PumpBuilding.tres" id="11_qi2k5"]
 [ext_resource type="Script" path="res://Scripts/Environment/MeshGen.cs" id="14_sbool"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04vd0"]
@@ -124,7 +125,7 @@ _buildMenu = NodePath("BuildMenu")
 _worldScene = NodePath("../..")
 _gridSize = 1.0
 _colorPicker = NodePath("BuildMenu/ColorPicker")
-_availableBuildings = [ExtResource("7_tfw4e"), ExtResource("8_t6a6r"), ExtResource("9_5d188"), ExtResource("9_810hy"), ExtResource("11_by22g")]
+_availableBuildings = [ExtResource("7_tfw4e"), ExtResource("8_t6a6r"), ExtResource("9_5d188"), ExtResource("9_810hy"), ExtResource("11_by22g"), ExtResource("11_qi2k5")]
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2

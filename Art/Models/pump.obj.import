@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cxepf1fs8047n"
+path="res://.godot/imported/pump.obj-794a7b05165e250116da689a4f18f493.mesh"
+
+[deps]
+
+files=["res://.godot/imported/pump.obj-794a7b05165e250116da689a4f18f493.mesh"]
+
+source_file="res://Art/Models/pump.obj"
+dest_files=["res://.godot/imported/pump.obj-794a7b05165e250116da689a4f18f493.mesh", "res://.godot/imported/pump.obj-794a7b05165e250116da689a4f18f493.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

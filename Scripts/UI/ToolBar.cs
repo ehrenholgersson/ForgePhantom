@@ -61,6 +61,7 @@ public partial class ToolBar : VBoxContainer
 				{
 					((Button)child).Icon = _availableBuildings[i].Icon;
                     ((Button)child).Text = _availableBuildings[i].BuildingName;
+					_availableBuildings[i].ScaleMesh(2);
 
                 }
 
@@ -106,7 +107,7 @@ public partial class ToolBar : VBoxContainer
         if (Mathf.Abs(_tempItemRotation) == 90 || Mathf.Abs(_tempItemRotation) == 270)
         {
             float X = _tempItemSize.X;
-            _tempItemSize.X = _tempItemSize.Y;
+            _tempItemSize.X = _tempItemSize.Z; // this was y, pretty sure z is correct
             _tempItemSize.Z = X;
         }
         GD.Print("size is " + _tempItemSize);
