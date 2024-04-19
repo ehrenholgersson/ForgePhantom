@@ -10,3 +10,4 @@ script = ExtResource("2_pnsek")
 Icon = ExtResource("1_ss4nk")
 ObjectMesh = SubResource("BoxMesh_edqv4")
 BuildingName = "Cube"
+MinHeight = 0.0

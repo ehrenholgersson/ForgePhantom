@@ -11,3 +11,4 @@ script = ExtResource("2_a6y7v")
 Icon = ExtResource("1_sni0j")
 ObjectMesh = SubResource("BoxMesh_edqv4")
 BuildingName = "2 x 2"
+MinHeight = 1.0

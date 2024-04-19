@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.AccessControl;
 
 public partial class ToolBar : VBoxContainer
 {
@@ -14,6 +15,7 @@ public partial class ToolBar : VBoxContainer
     [Export] Node _worldScene;
 	[Export] float _gridSize;
 	[Export] ColorPicker _colorPicker;
+	float _terrainHeight = 1; //Objects snap to this on y axis instead of _gridSize as as to match the terrain levels, is not modified by terrain itself so change manually if needed
 
     float _buttonTimer = 0;
 
@@ -61,7 +63,7 @@ public partial class ToolBar : VBoxContainer
 				{
 					((Button)child).Icon = _availableBuildings[i].Icon;
                     ((Button)child).Text = _availableBuildings[i].BuildingName;
-					_availableBuildings[i].ScaleMesh(2);
+					_availableBuildings[i].ScaleMesh(_availableBuildings[i].MinHeight);
 
                 }
 
@@ -288,20 +290,20 @@ public partial class ToolBar : VBoxContainer
 				if (MathF.Abs(normal.X) > MathF.Abs(normal.Y) && MathF.Abs(normal.X) > MathF.Abs(normal.Z))
 				{
 					float normalDirection = (normal.X) / MathF.Abs(normal.X);
-					position = new Vector3(Mathf.Round((position.X) / _gridSize) * _gridSize + _tempItemSize.X / 2 * normalDirection, Mathf.Floor((position.Y) / _gridSize) * _gridSize, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
-					position += new Vector3(0, (_tempItemSize.Y / 2) % _gridSize, (_tempItemSize.Z / 2) % _gridSize);
+					position = new Vector3(Mathf.Round((position.X) / _gridSize) * _gridSize + _tempItemSize.X / 2 * normalDirection, Mathf.Floor((position.Y) / _terrainHeight) * _terrainHeight, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
+					position += new Vector3(0, (_tempItemSize.Y / 2) % _terrainHeight, (_tempItemSize.Z / 2) % _gridSize);
 				}
 				else if (MathF.Abs(normal.Y) > MathF.Abs(normal.Z))
 				{
 					float normalDirection = (normal.Y) / MathF.Abs(normal.Y);
-					position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Round((position.Y) / _gridSize) * _gridSize + _tempItemSize.Y / 2 * normalDirection, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
+					position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Round((position.Y) / _terrainHeight) * _terrainHeight + _tempItemSize.Y / 2 * normalDirection, Mathf.Floor((position.Z) / _gridSize) * _gridSize);
 					position += new Vector3((_tempItemSize.X / 2) % _gridSize, 0, (_tempItemSize.Z / 2) % _gridSize);
 				}
 				else
 				{
 					float normalDirection = (normal.Z) / MathF.Abs(normal.Z);
-					position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Floor((position.Y) / _gridSize) * _gridSize, Mathf.Round((position.Z) / _gridSize) * _gridSize + (_tempItemSize.Z / 2) * normalDirection);
-					position += new Vector3((_tempItemSize.X / 2) % _gridSize, (_tempItemSize.Y / 2) % _gridSize, 0);
+					position = new Vector3(Mathf.Floor((position.X) / _gridSize) * _gridSize, Mathf.Floor((position.Y) / _terrainHeight) * _terrainHeight, Mathf.Round((position.Z) / _gridSize) * _gridSize + (_tempItemSize.Z / 2) * normalDirection);
+					position += new Vector3((_tempItemSize.X / 2) % _gridSize, (_tempItemSize.Y / 2) % _terrainHeight, 0);
 				}
 			}
             _tempItem.GlobalPosition = position;           

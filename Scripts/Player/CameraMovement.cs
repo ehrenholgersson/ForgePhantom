@@ -7,11 +7,14 @@ public partial class CameraMovement : Camera3D
 
 	[Export] Node3D _focus;
 	[Export] Vector2 mouse_sensitivity;
-	[Export] float _zoomSpeed;
 	[Export] bool _invertMouse = true;
-	[Export(PropertyHint.Range, "5,100,")] float _maxZoom;
+    [Export] float _zoomSpeed;
+    [Export(PropertyHint.Range, "5,100,")] float _maxZoom;
     [Export(PropertyHint.Range, "5,100,")] float _minZoom;
-	[Export(PropertyHint.Range, "5,85,")] float _cameraAngle = 60;
+	[Export] float _tiltSpeed;
+    [Export(PropertyHint.Range, "5,100,")] float _maxTilt;
+    [Export(PropertyHint.Range, "5,100,")] float _minTilt;
+    [Export(PropertyHint.Range, "5,85,")] float _cameraAngle = 60;
 	[Export(PropertyHint.Range, "0,359,")] float _cameraRotation = 0;
 	[Export(PropertyHint.Range, "5,100,")] float _cameraDistance = 10;
 	[Export] bool _allowCameraRotation = true;	
@@ -40,7 +43,6 @@ public partial class CameraMovement : Camera3D
 	{
 		GD.Print(" " + new Vector2(Mathf.Tan(Mathf.DegToRad(180)), 1).Normalized());
         GD.Print(" " + new Vector2(Mathf.Tan(Mathf.DegToRad(60)), 1).Normalized());
-
         GD.Print(" " + new Vector2(Mathf.Tan(Mathf.DegToRad(300)), 1).Normalized());
     }
 
@@ -108,9 +110,10 @@ public partial class CameraMovement : Camera3D
 		// update stored values
 		if (_allowZoom)
 		{
-            _zoomInput *= (float)delta * _zoomSpeed;
-            _cameraDistance = Mathf.Clamp(_cameraDistance + _zoomInput, _minZoom,_maxZoom);
-		}
+            _zoomInput *= (float)delta;
+            _cameraDistance = Mathf.Clamp(_cameraDistance + _zoomInput * _zoomSpeed, _minZoom,_maxZoom);
+			_cameraAngle = Mathf.Clamp(_cameraAngle + _zoomInput * _tiltSpeed, _minTilt, _maxTilt);
+        }
 		_cameraAngle = Mathf.Clamp(_cameraAngle, 5f,85f);
 		_cameraRotation = _cameraRotation % 360;
 		

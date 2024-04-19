@@ -1,18 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://lhy3nyrrodry"]
+[gd_scene load_steps=16 format=3 uid="uid://lhy3nyrrodry"]
 
 [ext_resource type="Script" path="res://Scripts/General/GameController.cs" id="1_646sc"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.cs" id="1_gjvdr"]
 [ext_resource type="Script" path="res://Scripts/Player/CameraMovement.cs" id="2_751fy"]
-[ext_resource type="Script" path="res://Scripts/UI/ToolBar.cs" id="5_24wj0"]
 [ext_resource type="Script" path="res://Scripts/Items/Collectable.cs" id="5_rq771"]
-[ext_resource type="PackedScene" uid="uid://d3v0wdpxcc3ue" path="res://Scenes/Prefabs/drag_item.tscn" id="6_1lg6w"]
 [ext_resource type="Resource" uid="uid://cjbjnnqu2uo8a" path="res://Resources/TestItem.tres" id="6_ymbuk"]
-[ext_resource type="Resource" uid="uid://e2f67sfrefec" path="res://Resources/Buildings/TestBuilding.tres" id="7_tfw4e"]
-[ext_resource type="Resource" uid="uid://cplhrct6ei0mx" path="res://Resources/Buildings/2x2Building.tres" id="8_t6a6r"]
-[ext_resource type="Resource" uid="uid://d0xgiqptc26b5" path="res://Resources/Buildings/4x4Building.tres" id="9_5d188"]
-[ext_resource type="Resource" uid="uid://bh4lihcod70n0" path="res://Resources/Buildings/8x8Building.tres" id="9_810hy"]
-[ext_resource type="Resource" uid="uid://b0ecs3f1oryqk" path="res://Resources/Buildings/Ramp.tres" id="11_by22g"]
-[ext_resource type="Resource" uid="uid://d1jvcttjye150" path="res://Resources/Buildings/PumpBuilding.tres" id="11_qi2k5"]
 [ext_resource type="Script" path="res://Scripts/Environment/MeshGen.cs" id="14_sbool"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04vd0"]
@@ -89,9 +81,14 @@ v_offset = -1.8
 script = ExtResource("2_751fy")
 _focus = NodePath("../Player")
 mouse_sensitivity = Vector2(15, 15)
-_zoomSpeed = 20.0
+_zoomSpeed = 40.0
 _maxZoom = 30.0
 _minZoom = 10.0
+_tiltSpeed = 82.5
+_maxTilt = 80.0
+_minTilt = 25.0
+_cameraDistance = 30.0
+_allowCameraTilt = false
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -103,173 +100,6 @@ offset_right = -3.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control" node_paths=PackedStringArray("_buildMenuButton", "_inventoryButton", "_inventoryBar", "_buildMenu", "_worldScene", "_colorPicker")]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.706
-anchor_right = 1.0
-anchor_bottom = 1.003
-offset_top = -0.00805664
-offset_right = -1.0
-offset_bottom = -0.203979
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_24wj0")
-_buttonHeldTime = 0.1
-_itemDragPrefab = ExtResource("6_1lg6w")
-_buildMenuButton = NodePath("HBoxContainer2/Button2")
-_inventoryButton = NodePath("HBoxContainer2/Button")
-_inventoryBar = NodePath("Inventory")
-_buildMenu = NodePath("BuildMenu")
-_worldScene = NodePath("../..")
-_gridSize = 1.0
-_colorPicker = NodePath("BuildMenu/ColorPicker")
-_availableBuildings = [ExtResource("7_tfw4e"), ExtResource("8_t6a6r"), ExtResource("9_5d188"), ExtResource("9_810hy"), ExtResource("11_by22g"), ExtResource("11_qi2k5")]
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "Inventory"
-
-[node name="Button2" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "Build"
-
-[node name="Inventory" type="HBoxContainer" parent="Control/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="Control/VBoxContainer/Inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-action_mode = 0
-icon_alignment = 1
-expand_icon = true
-
-[node name="Button2" type="Button" parent="Control/VBoxContainer/Inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-
-[node name="Button3" type="Button" parent="Control/VBoxContainer/Inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-
-[node name="Button4" type="Button" parent="Control/VBoxContainer/Inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-
-[node name="Button5" type="Button" parent="Control/VBoxContainer/Inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-
-[node name="Button6" type="Button" parent="Control/VBoxContainer/Inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-
-[node name="Button7" type="Button" parent="Control/VBoxContainer/Inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-
-[node name="Button8" type="Button" parent="Control/VBoxContainer/Inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="BuildMenu" type="Control" parent="Control/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Buttons" type="HBoxContainer" parent="Control/VBoxContainer/BuildMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -299.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-metadata/buttonIndex = 0
-
-[node name="Button2" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-metadata/buttonIndex = 1
-
-[node name="Button3" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-metadata/buttonIndex = 2
-
-[node name="Button4" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-metadata/buttonIndex = 3
-
-[node name="Button5" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-metadata/buttonIndex = 4
-
-[node name="Button6" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-metadata/buttonIndex = 5
-
-[node name="Button7" type="Button" parent="Control/VBoxContainer/BuildMenu/Buttons"]
-layout_mode = 2
-size_flags_horizontal = 3
-icon_alignment = 1
-expand_icon = true
-metadata/buttonIndex = 6
-
-[node name="ColorPicker" type="ColorPicker" parent="Control/VBoxContainer/BuildMenu"]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -297.0
-offset_top = 21.0001
-offset_right = 1.0
-offset_bottom = 21.0001
-grow_horizontal = 0
-grow_vertical = 2
-sampler_visible = false
-color_modes_visible = false
-sliders_visible = false
-hex_visible = false
-presets_visible = false
 
 [node name="Collectable2" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.79502, 13.8128)

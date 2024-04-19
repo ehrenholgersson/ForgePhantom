@@ -12,3 +12,4 @@ script = ExtResource("1_of3c6")
 Icon = ExtResource("1_8sfoi")
 ObjectMesh = SubResource("PrismMesh_br83k")
 BuildingName = "Ramp"
+MinHeight = 0.0

@@ -193,10 +193,10 @@ public partial class MeshGen : StaticBody3D
 						//Vector3 localPosition = new Vector3 (x, y, z);
 						Vector3 start = MarchingCubesTables.cubeCorners[MarchingCubesTables.edgeConnections[intersectedEdges[i]][0]];
                         Vector3 end = MarchingCubesTables.cubeCorners[MarchingCubesTables.edgeConnections[intersectedEdges[i]][1]];
-                        //GD.Print("Start: " + start);
-                        //GD.Print("End: " + end);
+						//GD.Print("Start: " + start);
+						//GD.Print("End: " + end);
 
-                        float difference = Mathf.Abs(GetCornerIndex(cubePos + MarchingCubesTables.cubeCorners[MarchingCubesTables.edgeConnections[intersectedEdges[i]][0]]) - GetCornerIndex(cubePos + MarchingCubesTables.cubeCorners[MarchingCubesTables.edgeConnections[intersectedEdges[i]][1]]));
+						float difference = Mathf.Abs(GetCornerIndex(cubePos + MarchingCubesTables.cubeCorners[MarchingCubesTables.edgeConnections[intersectedEdges[i]][0]]) - GetCornerIndex(cubePos + MarchingCubesTables.cubeCorners[MarchingCubesTables.edgeConnections[intersectedEdges[i]][1]]));
 						Vector3 vertPos = start + ((end - start) / 2) * (difference / _cubeValueLimit);
                         //GD.Print(start.Y + " + (("+end.Y+" - "+start.Y+") / 2) * ("+ difference+" / "+_cubeValueLimit+") = "+vertPos.Y);
                         //GD.Print("local vertex at " + vertPos);

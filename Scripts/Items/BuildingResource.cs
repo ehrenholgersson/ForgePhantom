@@ -7,6 +7,7 @@ public partial class BuildingResource : Resource, IDraggable
     [Export] public Texture2D Icon;
     [Export] public Mesh ObjectMesh;
     [Export] public string BuildingName;
+    [Export] public float MinHeight;
     public float Health = 10;
 
     public Mesh Model { get => ObjectMesh; } // why?
@@ -31,6 +32,7 @@ public partial class BuildingResource : Resource, IDraggable
 
     public void ScaleMesh(float size)
     {
+        size = Mathf.Max(size, MinHeight);
         Aabb bounds = ObjectMesh.GetAabb();
         Vector3 Offset = Vector3.Zero;
         float scale = 1;

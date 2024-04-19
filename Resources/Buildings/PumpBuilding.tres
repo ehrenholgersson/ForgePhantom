@@ -9,3 +9,4 @@ script = ExtResource("1_o57hu")
 Icon = ExtResource("1_n4xy2")
 ObjectMesh = ExtResource("2_syk64")
 BuildingName = "Pump"
+MinHeight = 2.0
