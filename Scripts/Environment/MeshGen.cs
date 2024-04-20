@@ -24,8 +24,6 @@ public partial class MeshGen : StaticBody3D
 	[Export] int _mapheight;
 
     [ExportGroup("Other")]
-
-    
 	[Export] int _solidThreshold = 1;
 	[Export] float _cubeValueLimit = 2;
     [Export] Material _material;
@@ -36,59 +34,9 @@ public partial class MeshGen : StaticBody3D
 	{
         var startTime  = Time.GetTicksMsec();
 		_voxels = GenerateHeightMap(300, 20, 300);
-			
-		//	new int[,,]
-		//{
-		//	{
-		//		{ 0, 0, 0, 0 },
-		//		{ 0, 0, 0, 0 },
-		//		{ 0, 0, 0, 0 },
-		//		{ 0, 0, 0, 0 }
-		//	},
-		//	{
-		//		{ 0, 0, 0, 0 },
-		//		{ 0, 2, 2, 0 },
-		//		{ 0, 2, 2, 0 },
-		//		{ 0, 0, 0, 0 }
-		//	},
-
-  //          {
-  //              { 0, 0, 0, 0 },
-  //              { 0, 2, 2, 0 },
-  //              { 0, 2, 2, 0 },
-  //              { 0, 0, 0, 0 }
-  //          },
-
-  //          {
-		//		{ 0, 0, 0, 0 },
-		//		{ 0, 0, 0, 0 },
-		//		{ 0, 0, 0, 0 },
-		//		{ 0, 0, 0, 0 }
-		//	}
-		//};
-
-        // (almost completyely) copy pasta from godot documentation @ https://docs.godotengine.org/en/stable/classes/class_arraymesh.html
         var vertices = buildmesh();
-		for ( var i = 0;i<vertices.Verts.Length; i++)
-		{
-			//GD.Print(vertices.Verts[i]);
-		}
-		// mesh as arraymesh, worked but coillisions were wrong
-		//      // Initialize the ArrayMesh.
-		//      var arrMesh = new ArrayMesh();
-		//      var arrays = new Godot.Collections.Array();
-		//      arrays.Resize((int)Mesh.ArrayType.Max);
-		//      arrays[(int)Mesh.ArrayType.Vertex] = vertices.Verts;
-		//      arrays[(int)Mesh.ArrayType.Normal] = vertices.Normals;
-
-		//      // Create the Mesh.
-		//      arrMesh.AddSurfaceFromArrays(Mesh.PrimitiveType.Triangles, arrays);
-		//var mI3d = new MeshInstance3D();
-		//mI3d.Mesh = arrMesh;
-		//arrMesh.RegenNormalMaps();
 
 		var st = new SurfaceTool();
-
 		st.Begin(Mesh.PrimitiveType.Triangles);
 		for (int i = 0; i < vertices.Verts.Length;i++)
 		{

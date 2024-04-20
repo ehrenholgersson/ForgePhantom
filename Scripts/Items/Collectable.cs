@@ -9,6 +9,10 @@ public partial class Collectable : RigidBody3D, IInteractable
 	CollisionShape3D _collider; // - not sure if needed?
 	RandomNumberGenerator _rng = new RandomNumberGenerator();
 
+	TransportNode _transportNode;
+	Vector3 _transportPath;
+	bool _inTransit;
+
 	
     //public Collectable(CollectableItem itm)
     //{
@@ -18,6 +22,7 @@ public partial class Collectable : RigidBody3D, IInteractable
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+		FreezeMode = FreezeModeEnum.Static;
 		_item = _item.newInstance();; // create an instance of our item
 		if (GetChildren().Count > 0)
 		{
@@ -53,10 +58,37 @@ public partial class Collectable : RigidBody3D, IInteractable
 		}
 	}
 
+	public void Transport(TransportNode Origin)
+	{
+		_transportNode = Origin;
+		_transportPath = Origin.TransportPath;
+	}
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		
+		if (_transportNode != null)
+		{
+			var traveled = (GlobalPosition - _transportNode.GlobalPosition); // distance and direction we have moved from the last transporter node
+
+			//if ((_transportPath.Normalized() * traveled.Length()).DistanceTo(traveled) < _transportNode.PathRadius)
+			if (traveled.Project(_transportPath.Normalized()).DistanceTo(traveled) < _transportNode.PathRadius && traveled.Length() < _transportPath.Length())
+			{
+				Freeze = true;
+                _inTransit = true;
+                GlobalPosition += _transportPath.Normalized() * (float)delta * _transportNode.Speed;
+			}
+			else
+			{
+				Freeze = false;
+				_inTransit = false;
+			}
+		}
+		else if (_inTransit)
+		{
+            Freeze = false;
+            _inTransit = false;
+        }
 	}
 }
 

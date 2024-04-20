@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnynldocmqkky"]
+
+[ext_resource type="Script" path="res://Scripts/TransportNode.cs" id="1_ju1cw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jsr05"]
+size = Vector3(4, 1, 4)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_k0172"]
+points = PackedVector3Array(-2, -0.5, -2, -2, 0.5, -2, 2, -0.5, -2, -2, -0.5, 2, -2, 0.5, 2, 2, 0.5, -2, 2, -0.5, 2, 2, 0.5, 2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cf36t"]
+radius = 2.0
+
+[node name="Transporter" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.0367, 0, 0)
+script = ExtResource("1_ju1cw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.66291, 0)
+mesh = SubResource("BoxMesh_jsr05")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_k0172")
+
+[node name="Entry" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Entry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.16633, 0)
+shape = SubResource("SphereShape3D_cf36t")
