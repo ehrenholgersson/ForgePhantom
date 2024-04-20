@@ -296,16 +296,16 @@ _material = SubResource("StandardMaterial3D_310v0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.9746, 2.56162, 0.0129547)
 _destinationNode = NodePath("../Transporter2")
 _pathradius = 2.0
-_speed = 20.0
+_speed = 10.0
 
 [node name="Transporter3" parent="." node_paths=PackedStringArray("_destinationNode") instance=ExtResource("15_dbftd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.1187, 2.56162, 0.0129547)
 _destinationNode = NodePath("../Transporter")
 _pathradius = 2.0
-_speed = 20.0
+_speed = 10.0
 
 [node name="Transporter2" parent="." node_paths=PackedStringArray("_destinationNode") instance=ExtResource("15_dbftd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.9746, 2.56162, 44.853)
 _destinationNode = NodePath("../Transporter3")
 _pathradius = 2.0
-_speed = 20.0
+_speed = 10.0
