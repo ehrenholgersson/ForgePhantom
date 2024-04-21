@@ -1,8 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Security.AccessControl;
 
 public partial class ToolBar : VBoxContainer
 {
@@ -15,7 +13,7 @@ public partial class ToolBar : VBoxContainer
     [Export] Node _worldScene;
 	[Export] float _gridSize;
 	[Export] ColorPicker _colorPicker;
-	float _terrainHeight = 1; //Objects snap to this on y axis instead of _gridSize as as to match the terrain levels, is not modified by terrain itself so change manually if needed
+	float _terrainHeight = 1; //Objects snap to this on y axis instead of _gridSize as to match the terrain levels, is not modified by terrain itself so change manually if needed
 
     float _buttonTimer = 0;
 
@@ -64,9 +62,7 @@ public partial class ToolBar : VBoxContainer
 					((Button)child).Icon = _availableBuildings[i].Icon;
                     ((Button)child).Text = _availableBuildings[i].BuildingName;
 					_availableBuildings[i].ScaleMesh(_availableBuildings[i].MinHeight);
-
                 }
-
 				i++;
 			}
 		}

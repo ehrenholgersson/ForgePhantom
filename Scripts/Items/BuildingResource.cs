@@ -1,14 +1,17 @@
 using Godot;
-using System;
 
 [GlobalClass]
 public partial class BuildingResource : Resource, IDraggable
 {
     [Export] public Texture2D Icon;
     [Export] public Mesh ObjectMesh;
+    [Export] public PackedScene BuildingObject;
     [Export] public string BuildingName;
     [Export] public float MinHeight;
     public float Health = 10;
+    Vector3 _size = Vector3.Zero;
+
+    public Vector3 Size { get => (_size != Vector3.Zero) ? _size : CalculateSize(); }
 
     public Mesh Model { get => ObjectMesh; } // why?
     
@@ -19,19 +22,55 @@ public partial class BuildingResource : Resource, IDraggable
         Icon = null;
         ObjectMesh = null;
         Health = 10;
+        BuildingObject = null;
     }
     public BuildingResource(BuildingResource original)
     {
         Icon = original.Icon;
         Health = original.Health;
         ObjectMesh = original.Model;
+        BuildingObject = original.BuildingObject;
         BuildingName = original.BuildingName;
+        if (original._size == Vector3.Zero) 
+        { 
+            CalculateSize();
+        }
+        else
+        {
+            _size = original._size;  
+        }
+        
+    }
 
-
+    public Vector3 CalculateSize() // Iterate through each mesh instance to determine the maximum size along each axis
+    {
+        if (BuildingObject != null)
+        {
+            var instance = BuildingObject.Instantiate();
+            foreach (Node child in instance.GetChildren())
+                if (child is MeshInstance3D)
+                {
+                    var aabb = ((MeshInstance3D)child).GetAabb();
+                    _size.X = Mathf.Max(_size.X, aabb.Size.X);
+                    _size.Y = Mathf.Max(_size.Y, aabb.Size.Y);
+                    _size.Z = Mathf.Max(_size.Z, aabb.Size.Z);
+                }
+        }
+        else if (ObjectMesh!= null)
+        {
+            _size = ObjectMesh.GetAabb().Size;
+        }
+        GD.Print("Building " + BuildingName + " size is " + _size);
+        return _size;
     }
 
     public void ScaleMesh(float size)
     {
+        if (ObjectMesh == null)
+        {
+            return;
+        }
+
         size = Mathf.Max(size, MinHeight);
         Aabb bounds = ObjectMesh.GetAabb();
         Vector3 Offset = Vector3.Zero;
