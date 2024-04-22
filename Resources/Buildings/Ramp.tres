@@ -1,15 +1,13 @@
-[gd_resource type="Resource" script_class="BuildingResource" load_steps=4 format=3 uid="uid://b0ecs3f1oryqk"]
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://ccsh2ppmb1hru"]
 
-[ext_resource type="Texture2D" uid="uid://uhopm0pafu63" path="res://Art/Sprites/pink_body_square.png" id="1_8sfoi"]
-[ext_resource type="Script" path="res://Scripts/Items/BuildingResource.cs" id="1_of3c6"]
-
-[sub_resource type="PrismMesh" id="PrismMesh_br83k"]
-left_to_right = 0.0
-size = Vector3(2, 1, 1)
+[ext_resource type="Texture2D" uid="uid://cbjlfjwqn7xbu" path="res://Art/Sprites/green_body_square.png" id="1_67wir"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="1_cstl4"]
+[ext_resource type="PackedScene" uid="uid://cinfq0wpklr1m" path="res://Scenes/Prefabs/Buildings/Ramp/RampCollider.tscn" id="2_qyebx"]
+[ext_resource type="PackedScene" uid="uid://wm28ahby32ds" path="res://Scenes/Prefabs/Buildings/Ramp/Ramp.tscn" id="3_mbnhh"]
 
 [resource]
-script = ExtResource("1_of3c6")
-Icon = ExtResource("1_8sfoi")
-ObjectMesh = SubResource("PrismMesh_br83k")
+script = ExtResource("1_cstl4")
+_meshScene = ExtResource("3_mbnhh")
+_colliderScene = ExtResource("2_qyebx")
+Icon = ExtResource("1_67wir")
 BuildingName = "Ramp"
-MinHeight = 0.0

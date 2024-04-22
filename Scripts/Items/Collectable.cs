@@ -36,7 +36,7 @@ public partial class Collectable : RigidBody3D, IInteractable
 		}
 		if (_item != null)
 		{
-			_meshInstance.Mesh = _item.ObjectMesh;
+			_meshInstance.Mesh = _item._model;
 			_meshInstance.CreateConvexCollision(true,true);
             _collider = GetNode<CollisionShape3D>("Model/Model_col/CollisionShape3D");
 			_collider.GetParent().RemoveChild(_collider);

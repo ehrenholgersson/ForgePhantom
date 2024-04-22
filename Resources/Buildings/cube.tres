@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://bjbtxtx2qvtxm"]
+
+[ext_resource type="Texture2D" uid="uid://dosmdlegxjrs8" path="res://Art/Sprites/icon.svg" id="1_sv5ij"]
+[ext_resource type="PackedScene" uid="uid://c2toxg42f8b2f" path="res://Scenes/Prefabs/Buildings/Cube/CubeCollision.tscn" id="2_2ly72"]
+[ext_resource type="PackedScene" uid="uid://bdc6xsiglk2ys" path="res://Scenes/Prefabs/Buildings/Cube/box.tscn" id="3_rqifp"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="4_lqkfj"]
+
+[resource]
+script = ExtResource("4_lqkfj")
+_meshScene = ExtResource("3_rqifp")
+_colliderScene = ExtResource("2_2ly72")
+Icon = ExtResource("1_sv5ij")
+BuildingName = "Cube"

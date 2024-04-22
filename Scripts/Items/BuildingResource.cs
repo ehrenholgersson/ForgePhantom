@@ -5,15 +5,15 @@ public partial class BuildingResource : Resource, IDraggable
 {
     [Export] public Texture2D Icon;
     [Export] public Mesh ObjectMesh;
-    [Export] public PackedScene BuildingObject;
+    [Export] PackedScene _object;
     [Export] public string BuildingName;
     [Export] public float MinHeight;
     public float Health = 10;
     Vector3 _size = Vector3.Zero;
-
+    
     public Vector3 Size { get => (_size != Vector3.Zero) ? _size : CalculateSize(); }
-
-    public Mesh Model { get => ObjectMesh; } // why?
+    public Mesh Model { get => ObjectMesh; } // for IDraggable Interface
+    public PackedScene Object { get => _object; }
     
 
     public BuildingResource()
@@ -22,44 +22,51 @@ public partial class BuildingResource : Resource, IDraggable
         Icon = null;
         ObjectMesh = null;
         Health = 10;
-        BuildingObject = null;
+        _object = null;
     }
     public BuildingResource(BuildingResource original)
     {
         Icon = original.Icon;
         Health = original.Health;
         ObjectMesh = original.Model;
-        BuildingObject = original.BuildingObject;
+        _object = original.Object;
         BuildingName = original.BuildingName;
-        if (original._size == Vector3.Zero) 
-        { 
-            CalculateSize();
-        }
-        else
-        {
-            _size = original._size;  
-        }
+        //if (original._size == Vector3.Zero) 
+        //{ 
+        //    CalculateSize();
+        //}
+        //else
+        //{
+        //    _size = original._size;  
+        //}
         
     }
 
-    public Vector3 CalculateSize() // Iterate through each mesh instance to determine the maximum size along each axis
+    public Node3D GetMeshObject(Material material)
     {
-        if (BuildingObject != null)
+        var meshScene = Object.Instantiate();
+        GameController.Singleton.AddChild(meshScene);
+        if (meshScene is MeshContainer)
         {
-            var instance = BuildingObject.Instantiate();
-            foreach (Node child in instance.GetChildren())
-                if (child is MeshInstance3D)
-                {
-                    var aabb = ((MeshInstance3D)child).GetAabb();
-                    _size.X = Mathf.Max(_size.X, aabb.Size.X);
-                    _size.Y = Mathf.Max(_size.Y, aabb.Size.Y);
-                    _size.Z = Mathf.Max(_size.Z, aabb.Size.Z);
-                }
+            ((MeshContainer)meshScene).SetMaterialOverride(material);
+            _size = ((MeshContainer)meshScene).Size;
         }
-        else if (ObjectMesh!= null)
-        {
-            _size = ObjectMesh.GetAabb().Size;
-        }
+        GameController.Singleton.RemoveChild(meshScene);
+        return meshScene as Node3D;
+    }
+
+    public Vector3 CalculateSize() // does nothing currently
+    {
+    //    if (_object != null)
+    //    {
+    //        var instance = _object.Instantiate();
+    //        if (instance is Building)
+    //            _size = ((Building)instance).Size;
+    //    }
+    //    else if (ObjectMesh!= null)
+    //    {
+    //        _size = ObjectMesh.GetAabb().Size;
+    //    }
         GD.Print("Building " + BuildingName + " size is " + _size);
         return _size;
     }

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://c5sbjijpimwct"]
+
+[ext_resource type="Texture2D" uid="uid://uhopm0pafu63" path="res://Art/Sprites/pink_body_square.png" id="1_tcb32"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="1_w1xul"]
+[ext_resource type="PackedScene" uid="uid://bcfsc1fjjspa1" path="res://Scenes/Prefabs/Buildings/pump/PumpCollider.tscn" id="2_qeqpo"]
+[ext_resource type="PackedScene" uid="uid://b6eav2buvii4c" path="res://Scenes/Prefabs/Buildings/pump/pump_polygon.tscn" id="3_s2poa"]
+
+[resource]
+script = ExtResource("1_w1xul")
+_meshScene = ExtResource("3_s2poa")
+_colliderScene = ExtResource("2_qeqpo")
+Icon = ExtResource("1_tcb32")
+BuildingName = "Pump"

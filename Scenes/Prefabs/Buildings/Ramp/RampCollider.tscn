@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cinfq0wpklr1m"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_dkb6j"]
+data = PackedVector3Array(-1, 0.5, 0.5, 1, -0.5, 0.5, -1, -0.5, 0.5, -1, 0.5, -0.5, -1, -0.5, -0.5, 1, -0.5, -0.5, -1, 0.5, 0.5, -1, 0.5, -0.5, 1, -0.5, 0.5, -1, 0.5, -0.5, 1, -0.5, -0.5, 1, -0.5, 0.5, -1, 0.5, -0.5, -1, 0.5, 0.5, -1, -0.5, -0.5, -1, 0.5, 0.5, -1, -0.5, 0.5, -1, -0.5, -0.5, -1, -0.5, 0.5, 1, -0.5, 0.5, -1, -0.5, -0.5, 1, -0.5, 0.5, 1, -0.5, -0.5, -1, -0.5, -0.5)
+
+[node name="StaticBody3D" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_dkb6j")

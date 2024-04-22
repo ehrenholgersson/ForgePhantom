@@ -20,7 +20,7 @@ public partial class ToolBar : VBoxContainer
 	List<Button> _inventorybuttons = new List<Button>();
 	int _selectedButton;
 
-    [Export] Godot.Collections.Array<BuildingResource> _availableBuildings = new Godot.Collections.Array<BuildingResource>();
+    [Export] Godot.Collections.Array<Building> _availableBuildings = new Godot.Collections.Array<Building>();
 
 	bool _drag;
 	IDraggable _item;
@@ -61,7 +61,7 @@ public partial class ToolBar : VBoxContainer
 				{
 					((Button)child).Icon = _availableBuildings[i].Icon;
                     ((Button)child).Text = _availableBuildings[i].BuildingName;
-					_availableBuildings[i].ScaleMesh(_availableBuildings[i].MinHeight);
+					//_availableBuildings[i].ScaleMesh(_availableBuildings[i].MinHeight);
                 }
 				i++;
 			}
@@ -80,34 +80,58 @@ public partial class ToolBar : VBoxContainer
 		}
 	}
 
-        public void OnInventoryButtonClick(int index)
+	public void OnInventoryButtonClick(int index)
 	{
 		GD.Print("pressed button " + index);
-        _buttonTimer = Time.GetTicksMsec() + _buttonHeldTime * 1000; // convert sec to msec
-        _item = GameController.MainPlayer.GetInventoryItem(index);
+		_buttonTimer = Time.GetTicksMsec() + _buttonHeldTime * 1000; // convert sec to msec
+		_item = GameController.MainPlayer.GetInventoryItem(index);
 		_selectedButton = index;
 	}
 
-    public void OnBuildButtonClick(int index)
+    public void OnBuildButtonClick(int index) // need to add some comments in here
     {
         GD.Print("pressed button " + index);
 		if (_availableBuildings.Count > index)
         _item = _availableBuildings[index];
         _selectedButton = index;
 
-        _worldScene.AddChild(_itemDragPrefab.Instantiate());
-        _tempItem = _worldScene.GetNode("Drag_Item") as Node3D;
-        MeshInstance3D mesh = _tempItem.GetNode<MeshInstance3D>("Model");
-        mesh.Mesh = _item?.Model;
-        mesh.MaterialOverride = _tempItemMat;
-		_tempItemSize = mesh.GetAabb().Size;
-		// "Rotate" the size to match our eventual basis
+		if (IsInstanceValid(_tempItem))
+		{
+			_tempItem.QueueFree();
+		}
+		_tempItem = _itemDragPrefab.Instantiate() as Node3D;
+        _worldScene.AddChild(_tempItem);
+		//_tempItem = _worldScene.GetNode("Drag_Item") as Node3D;
+		//if (_item?.Object != null)
+		//{
+		//	var meshScene = _item.Object.Instantiate();
+		//	_tempItem.AddChild(meshScene);
+		//	if (meshScene is MeshContainer)
+		//	{
+		//		((MeshContainer)meshScene).SetMaterialOverride(_tempItemMat);
+		//		_tempItemSize = ((MeshContainer)meshScene).Size;
+		//	}
+
+		//}
+		//else
+		//{
+		//	MeshInstance3D mesh = _tempItem.GetNode<MeshInstance3D>("Model");
+		//	mesh.Mesh = _item?.Model;
+		//	mesh.MaterialOverride = _tempItemMat;
+		//	_tempItemSize = mesh.GetAabb().Size;
+		//}
+		var mesh = _item?.GetMeshObject(_tempItemMat);
+		_tempItem.AddChild(mesh);
+		_tempItemSize = _item.Size;
+
+        // "Rotate" the size to match our eventual basis
         if (Mathf.Abs(_tempItemRotation) == 90 || Mathf.Abs(_tempItemRotation) == 270)
         {
             float X = _tempItemSize.X;
             _tempItemSize.X = _tempItemSize.Z; // this was y, pretty sure z is correct
             _tempItemSize.Z = X;
         }
+
         GD.Print("size is " + _tempItemSize);
 		GD.Print("rotation is " + _tempItemRotation);
         _drag = true;
@@ -143,10 +167,11 @@ public partial class ToolBar : VBoxContainer
 						//tempItem = itemDragPrefab.Instantiate() as Node3D;
 						_worldScene.AddChild(_itemDragPrefab.Instantiate());
 						_tempItem = _worldScene.GetNode("Drag_Item") as Node3D;
-						MeshInstance3D mesh = _tempItem.GetNode<MeshInstance3D>("Model");
-						mesh.Mesh = _item?.Model;
-						mesh.MaterialOverride = _tempItemMat;
-                        _tempItemSize = mesh.GetAabb().Size;
+						_tempItem.AddChild(_item.GetMeshObject(_tempItemMat));
+						//MeshInstance3D mesh = _tempItem.GetNode<MeshInstance3D>("Model");
+						//mesh.Mesh = _item?.Model;
+						//mesh.MaterialOverride = _tempItemMat;
+                        _tempItemSize = _item.Size;
 						if (_tempItemRotation == 90 || _tempItemRotation == 270)
 						{
 							float X = _tempItemSize.X;
@@ -210,7 +235,7 @@ public partial class ToolBar : VBoxContainer
 		}
 		else if (_buildMenu.Visible)
 		{
-			if (_item is BuildingResource)
+			if (_item is Building)
 			{
 
 				MoveObjectPlacement();
@@ -226,12 +251,12 @@ public partial class ToolBar : VBoxContainer
 				else if (Input.GetMouseButtonMask() == MouseButtonMask.Left)
 				{
                     // place the thing
-                    Building newObject = new Building();
-                    newObject.SetResource((BuildingResource)_item);
-                    _worldScene.AddChild(newObject);
+                    BuildingNode newObject = ((Building)_item).SpawnBuilding() as BuildingNode;
+                    //newObject.SetResource((BuildingResource)_item);
+                    //_worldScene.AddChild(newObject);
                     newObject.GlobalPosition = _tempItem.GlobalPosition;
 					newObject.GlobalRotation = _tempItem.GlobalRotation;
-					newObject.SetColor(_colorPicker?.Color ?? new Color(1, 1, 1, 1));
+                    newObject.Building.SetColor(_colorPicker?.Color ?? new Color(1, 1, 1, 1));
                     _drag = false;
                     // kill our placeholder
                     _tempItem.QueueFree();
@@ -270,14 +295,24 @@ public partial class ToolBar : VBoxContainer
 			var end = (origin + GameController.MainCamera.ProjectRayNormal(_mousePosition) * rayLength);
 			var query = PhysicsRayQueryParameters3D.Create(origin, end);
 			var result = spaceState.IntersectRay(query);
-			Vector3 position = (Vector3)result["position"];
+
+			// get the result, don't continue if we didn't hit anything
+			Vector3 position = Vector3.Zero;
+			if (result.TryGetValue("position", out var pos))
+			{
+				position = (Vector3)pos;
+			}
+			else
+			{
+				return;
+			}
 
 			if (_item is CollectableResource)
 			{
 				// move our position along the collision normal half a block so we aren't intersecting stuff (hopefully)
 				position += (Vector3)result["normal"] * 0.6f;
 			}
-			else if (_item is BuildingResource)
+			else if (_item is Building)
 			{
 				//snap building to grid, adjusting position based on the ray intersection normal and mesh size
 				// On the normal axis of the ray intersection (the direction of the face we hit), we want to round to the closest value aligned with our grid, then pull back 1/2 the size of our item so that it doesn't clip through the floor/wall whatever

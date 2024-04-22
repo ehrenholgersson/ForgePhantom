@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://f0pj360owml6" path="res://Art/Sprites/blue_body_circle.png" id="1_s6oll"]
 [ext_resource type="Script" path="res://Scripts/Items/CollectableResource.cs" id="2_14mrb"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_i0ych"]
+[sub_resource type="SphereMesh" id="SphereMesh_3a5cb"]
 
 [resource]
 script = ExtResource("2_14mrb")
 Icon = ExtResource("1_s6oll")
-ObjectMesh = SubResource("SphereMesh_i0ych")
+_model = SubResource("SphereMesh_3a5cb")

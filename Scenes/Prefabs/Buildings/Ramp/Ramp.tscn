@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://wm28ahby32ds"]
+
+[ext_resource type="Script" path="res://Scripts/MeshContainer.cs" id="1_jtx45"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_br83k"]
+left_to_right = 0.0
+size = Vector3(2, 1, 1)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_jtx45")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_br83k")

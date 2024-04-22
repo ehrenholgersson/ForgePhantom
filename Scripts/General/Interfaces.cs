@@ -8,5 +8,7 @@ public interface IInteractable
 
 public interface IDraggable
 {
-    public Mesh Model { get; }
+    public Vector3 Size { get; }
+
+    public Node3D GetMeshObject(Material material);
 }

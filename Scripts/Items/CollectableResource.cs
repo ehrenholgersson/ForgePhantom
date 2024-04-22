@@ -5,26 +5,46 @@ using System;
 public partial class CollectableResource : Resource, IDraggable
 {
     [Export] public Texture2D Icon;
-    [Export] public Mesh ObjectMesh;
+    [Export] public Mesh _model;
+    [Export] public PackedScene _object;
     public float Health = 10;
+    Vector3 _size = Vector3.Zero;
 
-    public Mesh Model { get => ObjectMesh; }
+    public Vector3 Size { get => (_size != Vector3.Zero) ? _size : CalculateSize(); }
+    public PackedScene Object { get => _object; }
 
     public CollectableResource()
 	{
         Icon = null;
-        ObjectMesh = null;
+        _model = null;
         Health = 10;
 	}
 	public CollectableResource(CollectableResource original)
 	{
         Icon = original.Icon;
         Health = original.Health;
-        ObjectMesh = original.Model;
+        _model = original._model;
 	}
+
+    public Node3D GetMeshObject(Material material)
+    {
+        MeshInstance3D mesh = new MeshInstance3D();
+        mesh.Mesh = _model;
+        mesh.MaterialOverride = material;
+        return mesh;
+    }
 
 	public CollectableResource newInstance()
 	{
 		return new CollectableResource((CollectableResource)this);
 	}
+
+    Vector3 CalculateSize()
+    {
+        if (_model != null)
+        {
+            _size = _model.GetAabb().Size;
+        }
+        return _size;
+    }
 }

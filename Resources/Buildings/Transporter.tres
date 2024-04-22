@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Building" load_steps=6 format=3 uid="uid://c0ftfj6kqces4"]
+
+[ext_resource type="Texture2D" uid="uid://dri302klmdg7g" path="res://Art/Sprites/yellow_body_square.png" id="1_ea7tt"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="1_rohle"]
+[ext_resource type="PackedScene" uid="uid://dyhoytl2d2l6d" path="res://Scenes/Prefabs/Buildings/Transporter/TransporterCollider.tscn" id="2_hdtsf"]
+[ext_resource type="PackedScene" uid="uid://ckqkrahblrbqd" path="res://Scenes/Prefabs/Buildings/Transporter/TransporterMesh.tscn" id="3_gdeso"]
+[ext_resource type="PackedScene" uid="uid://cnb6it0iecqp6" path="res://Scenes/Prefabs/Buildings/Transporter/TransporterFunction.tscn" id="4_06n7s"]
+
+[resource]
+script = ExtResource("1_rohle")
+_meshScene = ExtResource("3_gdeso")
+_colliderScene = ExtResource("2_hdtsf")
+_otherScene = ExtResource("4_06n7s")
+Icon = ExtResource("1_ea7tt")
+BuildingName = "Transport Pad"
