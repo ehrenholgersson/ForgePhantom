@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 public partial class ToolBar : VBoxContainer
 {
@@ -8,12 +9,18 @@ public partial class ToolBar : VBoxContainer
     [Export] PackedScene _itemDragPrefab;
 	[Export] Button _buildMenuButton;
     [Export] Button _inventoryButton;
-	[Export] Control _inventoryBar;
+    [Export] Button _linkButton;
+    [Export] Control _inventoryBar;
     [Export] Control _buildMenu;
     [Export] Node _worldScene;
 	[Export] float _gridSize;
 	[Export] ColorPicker _colorPicker;
-	float _terrainHeight = 1; //Objects snap to this on y axis instead of _gridSize as to match the terrain levels, is not modified by terrain itself so change manually if needed
+
+    [Export] Control _LinkBar;
+    Label _linkText;
+    Node3D _linkOrigin;
+
+    float _terrainHeight = 1; //Objects snap to this on y axis instead of _gridSize as to match the terrain levels, is not modified by terrain itself so need to change manually when required
 
     float _buttonTimer = 0;
 
@@ -50,6 +57,8 @@ public partial class ToolBar : VBoxContainer
 
 		}
 
+		_linkText = _LinkBar.GetNode("LinkText") as Label;
+
 			int i = 0;
 		foreach (Node child in GetNode("BuildMenu/Buttons").GetChildren())
 		{
@@ -69,6 +78,7 @@ public partial class ToolBar : VBoxContainer
 
         _buildMenuButton.Pressed += SelectBuildMenu;
 		_inventoryButton.Pressed += SelectInventory;
+		_linkButton.Pressed += SelectLink;
         _tempItemMat = GD.Load("res://Art/Materials/Translucent.tres") as Material;
     }
 
@@ -101,36 +111,18 @@ public partial class ToolBar : VBoxContainer
 		}
 		_tempItem = _itemDragPrefab.Instantiate() as Node3D;
         _worldScene.AddChild(_tempItem);
-		//_tempItem = _worldScene.GetNode("Drag_Item") as Node3D;
-		//if (_item?.Object != null)
-		//{
-		//	var meshScene = _item.Object.Instantiate();
-		//	_tempItem.AddChild(meshScene);
-		//	if (meshScene is MeshContainer)
-		//	{
-		//		((MeshContainer)meshScene).SetMaterialOverride(_tempItemMat);
-		//		_tempItemSize = ((MeshContainer)meshScene).Size;
-		//	}
 
-		//}
-		//else
-		//{
-		//	MeshInstance3D mesh = _tempItem.GetNode<MeshInstance3D>("Model");
-		//	mesh.Mesh = _item?.Model;
-		//	mesh.MaterialOverride = _tempItemMat;
-		//	_tempItemSize = mesh.GetAabb().Size;
-		//}
 		var mesh = _item?.GetMeshObject(_tempItemMat);
 		_tempItem.AddChild(mesh);
 		_tempItemSize = _item.Size;
 
         // "Rotate" the size to match our eventual basis
-        if (Mathf.Abs(_tempItemRotation) == 90 || Mathf.Abs(_tempItemRotation) == 270)
-        {
-            float X = _tempItemSize.X;
-            _tempItemSize.X = _tempItemSize.Z; // this was y, pretty sure z is correct
-            _tempItemSize.Z = X;
-        }
+        //if (Mathf.Abs(_tempItemRotation) == 90 || Mathf.Abs(_tempItemRotation) == 270)
+        //{
+        //    float X = _tempItemSize.X;
+        //    _tempItemSize.X = _tempItemSize.Z; // this was y, pretty sure z is correct
+        //    _tempItemSize.Z = X;
+        //}
 
         GD.Print("size is " + _tempItemSize);
 		GD.Print("rotation is " + _tempItemRotation);
@@ -141,19 +133,30 @@ public partial class ToolBar : VBoxContainer
 	{
 		_buildMenu.Visible = true;
 		_inventoryBar.Visible = false;
+		_LinkBar.Visible = false;
 	}
 
 	void SelectInventory()
 	{
         _buildMenu.Visible = false;
         _inventoryBar.Visible = true;
+        _LinkBar.Visible = false;
+    }
+
+	void SelectLink()
+	{
+		_linkOrigin = null;
+        _buildMenu.Visible = false;
+        _inventoryBar.Visible = false;
+        _LinkBar.Visible = true;
+		_linkText.Text = "Select origin node to link";
     }
 
     public override void _PhysicsProcess(double delta)
 	{
         _mousePosition = GetViewport().GetMousePosition();
 
-        if (_inventoryBar.Visible)
+		if (_inventoryBar.Visible)
 		{
 			if (Input.GetMouseButtonMask() == MouseButtonMask.Left && _item is CollectableResource)
 			{
@@ -171,19 +174,19 @@ public partial class ToolBar : VBoxContainer
 						//MeshInstance3D mesh = _tempItem.GetNode<MeshInstance3D>("Model");
 						//mesh.Mesh = _item?.Model;
 						//mesh.MaterialOverride = _tempItemMat;
-                        _tempItemSize = _item.Size;
-						if (_tempItemRotation == 90 || _tempItemRotation == 270)
-						{
-							float X = _tempItemSize.X;
-							_tempItemSize.X = _tempItemSize.Z;
-							_tempItemSize.Z = X;
-						}
-                        _drag = true;
+						_tempItemSize = _item.Size;
+						//if (_tempItemRotation == 90 || _tempItemRotation == 270)
+						//{
+						//	float X = _tempItemSize.X;
+						//	_tempItemSize.X = _tempItemSize.Z;
+						//	_tempItemSize.Z = X;
+						//}
+						_drag = true;
 					}
 
-                    // move the placeholder object wherever the mouse is pointing
-                    MoveObjectPlacement();
-                }
+					// move the placeholder object wherever the mouse is pointing
+					MoveObjectPlacement();
+				}
 			}
 			else if (_buttonTimer > 0)
 			{
@@ -192,18 +195,18 @@ public partial class ToolBar : VBoxContainer
 				{
 					// remove object from player inventory
 					GameController.MainPlayer.RemoveObject(_selectedButton);
-                    _inventorybuttons[_selectedButton].Icon = null;
+					_inventorybuttons[_selectedButton].Icon = null;
 
 					// check if we are over another inventory slot
 					foreach (Button button in _inventorybuttons)
 					{
 						Vector2 mousePos = button.GetGlobalMousePosition();
 						Vector2 buttonPos = button.GlobalPosition + button.Size / 2;
-                        if (Mathf.Abs(mousePos.X - buttonPos.X) < button.Size.X/2 && Mathf.Abs(mousePos.Y - buttonPos.Y) < button.Size.Y / 2)
+						if (Mathf.Abs(mousePos.X - buttonPos.X) < button.Size.X / 2 && Mathf.Abs(mousePos.Y - buttonPos.Y) < button.Size.Y / 2)
 						{
 							GD.Print("place in slot " + _inventorybuttons.IndexOf(button));
 							// attempt to place in new slot
-							if (GameController.MainPlayer.PickUpObject((CollectableResource)_item,_inventorybuttons.IndexOf(button)))
+							if (GameController.MainPlayer.PickUpObject((CollectableResource)_item, _inventorybuttons.IndexOf(button)))
 							{
 								goto ITEMCLEANUP; // C# or QBASIC?? - Skip creating new object instance and go to the part where we delete the placeholder
 							}
@@ -213,15 +216,15 @@ public partial class ToolBar : VBoxContainer
 							//GD.Print("mouse at " + mousePos + " outside bounds of button " + _inventorybuttons.IndexOf(button) + " at " + buttonPos + " +/- " + button.Size);
 						}
 
-                    }
+					}
 
-                    // attempt to place item in world
-                    Collectable newObject = new Collectable();
+					// attempt to place item in world
+					Collectable newObject = new Collectable();
 					newObject.SetItem((CollectableResource)_item);
 					_worldScene.AddChild(newObject);
 					newObject.GlobalPosition = _tempItem.GlobalPosition;
 
-					ITEMCLEANUP:
+				ITEMCLEANUP:
 					_drag = false;
 					// kill our placeholder
 					_tempItem.QueueFree();
@@ -247,22 +250,77 @@ public partial class ToolBar : VBoxContainer
 						_drag = false;
 					}
 
-                }
+				}
 				else if (Input.GetMouseButtonMask() == MouseButtonMask.Left)
 				{
-                    // place the thing
-                    BuildingNode newObject = ((Building)_item).SpawnBuilding() as BuildingNode;
-                    //newObject.SetResource((BuildingResource)_item);
-                    //_worldScene.AddChild(newObject);
-                    newObject.GlobalPosition = _tempItem.GlobalPosition;
+					// place the thing
+					BuildingNode newObject = ((Building)_item).SpawnBuilding() as BuildingNode;
+					//newObject.SetResource((BuildingResource)_item);
+					//_worldScene.AddChild(newObject);
+					newObject.GlobalPosition = _tempItem.GlobalPosition;
 					newObject.GlobalRotation = _tempItem.GlobalRotation;
-                    newObject.Building.SetColor(_colorPicker?.Color ?? new Color(1, 1, 1, 1));
-                    _drag = false;
-                    // kill our placeholder
-                    _tempItem.QueueFree();
-                    _item = null;
-                }
-            }
+					newObject.Building.SetColor(_colorPicker?.Color ?? new Color(1, 1, 1, 1));
+					_drag = false;
+					// kill our placeholder
+					_tempItem.QueueFree();
+					_item = null;
+				}
+			}
+		}
+		else if (_LinkBar.Visible)
+		{
+			if (Input.GetMouseButtonMask() == MouseButtonMask.Left)
+			{
+				if (_linkOrigin == null)
+				{
+					// do a raycast and check if we hit a transporter
+					float rayLength = 500;
+
+					// do raycast to check where mouse is pointing
+					var spaceState = GameController.MainPlayer.GetWorld3D().DirectSpaceState;
+					var origin = GameController.MainCamera?.ProjectRayOrigin(_mousePosition) ?? Vector3.Zero;
+					var end = (origin + GameController.MainCamera.ProjectRayNormal(_mousePosition) * rayLength);
+					var query = PhysicsRayQueryParameters3D.Create(origin, end);
+					var result = spaceState.IntersectRay(query);
+
+					if (result.TryGetValue("collider", out var collider))
+					{
+						Node bld = ((Node3D)collider).GetParent(); // surely raycast won't hit anything not in 3D space, so we should always be OK to cast to node3D?? probably....
+						if (bld is BuildingNode)
+						{
+							_linkOrigin = bld as Node3D;
+							_linkText.Text = "Select destination node to connect to " + ((BuildingNode)bld).Building?.BuildingName;
+						}
+					}
+
+				}
+				else
+				{
+					// do a raycast and check if we hit a transporter
+					float rayLength = 500;
+
+                    // do raycast to check where mouse is pointing
+                    var spaceState = GameController.MainPlayer.GetWorld3D().DirectSpaceState;
+                    var origin = GameController.MainCamera?.ProjectRayOrigin(_mousePosition) ?? Vector3.Zero;
+					var end = (origin + GameController.MainCamera.ProjectRayNormal(_mousePosition) * rayLength);
+					var query = PhysicsRayQueryParameters3D.Create(origin, end);
+					var result = spaceState.IntersectRay(query);
+
+					if (result.TryGetValue("collider", out var collider))
+					{
+						Node bld = ((Node3D)collider).GetParent(); // surely raycast won't hit anything not in 3D space, so we should always be OK to cast to node3D?? probably....
+						if (bld is BuildingNode && bld != _linkOrigin)
+						{
+							// if so set the transporter as destination node on origin and reset text/origin
+							((BuildingNode)_linkOrigin).Building?.SetNode((Node3D)bld);
+							_linkOrigin = null;
+                            _linkText.Text = "Select origin node to link";
+							SelectBuildMenu(); // as we aren't checking for a sinle click its easiest just to jump back to build menu rather than inevitably "click on" the same building again and set it as origin unintentionally
+                        }
+					}
+				}
+			}
+
 		}
 	}
 
@@ -276,27 +334,29 @@ public partial class ToolBar : VBoxContainer
             rotation = (Mathf.Round(_inputRotation / 90) * 90)%360;
 			if (rotation != _tempItemRotation)
 			{
-				// swap around our size values to match
-                float X = _tempItemSize.X;
-                _tempItemSize.X = _tempItemSize.Z;
-                _tempItemSize.Z = X;
+				//// swap around our size values to match
+    //            float X = _tempItemSize.X;
+    //            _tempItemSize.X = _tempItemSize.Z;
+    //            _tempItemSize.Z = X;
 
 				_tempItemRotation = rotation;
                 _tempItem.GlobalRotationDegrees = new Vector3(0, _tempItemRotation, 0);
+				((Building)_item).CalculateSize();
+				_tempItemSize = _item.Size;
 			}
         }
         else
         {
 			float rayLength = 500;
 
-            // move the placeholder object wherever the mouse is pointing
+            // do raycast to check where mouse is pointing
             var spaceState = _tempItem.GetWorld3D().DirectSpaceState;
 			var origin = GameController.MainCamera?.ProjectRayOrigin(_mousePosition) ?? Vector3.Zero;
 			var end = (origin + GameController.MainCamera.ProjectRayNormal(_mousePosition) * rayLength);
 			var query = PhysicsRayQueryParameters3D.Create(origin, end);
 			var result = spaceState.IntersectRay(query);
 
-			// get the result, don't continue if we didn't hit anything
+			// get the result and move _tempItem there, unless we didn't hit anything
 			Vector3 position = Vector3.Zero;
 			if (result.TryGetValue("position", out var pos))
 			{

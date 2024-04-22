@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Building" load_steps=6 format=3 uid="uid://djxvkkxo68o8p"]
+
+[ext_resource type="Texture2D" uid="uid://dri302klmdg7g" path="res://Art/Sprites/yellow_body_square.png" id="1_7hsgl"]
+[ext_resource type="PackedScene" uid="uid://i5gl4jv3vv21" path="res://Scenes/Prefabs/Buildings/TransportRing/TranspRingCollider.tscn" id="2_0o03e"]
+[ext_resource type="PackedScene" uid="uid://6ss8rl3tp54" path="res://Scenes/Prefabs/Buildings/TransportRing/TranspRingMesh.tscn" id="3_75xb0"]
+[ext_resource type="PackedScene" uid="uid://b0gswtdxusftm" path="res://Scenes/Prefabs/Buildings/TransportRing/TransportRing.tscn" id="4_sx0gx"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="5_g55bw"]
+
+[resource]
+script = ExtResource("5_g55bw")
+_meshScene = ExtResource("3_75xb0")
+_colliderScene = ExtResource("2_0o03e")
+_otherScene = ExtResource("4_sx0gx")
+Icon = ExtResource("1_7hsgl")
+BuildingName = "Transport Ring"
+_functions = 0

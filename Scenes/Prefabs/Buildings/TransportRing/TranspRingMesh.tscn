@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://6ss8rl3tp54"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_vg7ec"]
+custom_aabb = AABB(0, 0, 0, 4, 4, 0.8)
+inner_radius = 1.2
+outer_radius = 2.0
+rings = 24
+ring_segments = 16
+
+[node name="Mesh" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_vg7ec")

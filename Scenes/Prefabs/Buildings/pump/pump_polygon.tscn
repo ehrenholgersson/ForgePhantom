@@ -1,6 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b6eav2buvii4c"]
-
-[ext_resource type="Script" path="res://Scripts/MeshContainer.cs" id="1_yl17m"]
+[gd_scene load_steps=24 format=3 uid="uid://b6eav2buvii4c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1gikc"]
 resource_name = "material_0"
@@ -361,8 +359,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_48p84")
 
-[node name="Pump_Polygon" type="Node3D"]
-script = ExtResource("1_yl17m")
+[node name="Mesh" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.337, -0.404, 0.047)
 
 [node name="Pump" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.42861e-17, 0.296875, 0)

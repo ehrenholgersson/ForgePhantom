@@ -27,6 +27,12 @@ public partial class TransportNode : Node3D
 			_path = _destinationNode.GlobalPosition - GlobalPosition;
 			SetupParticles();
 		}
+		var parent = GetParent();
+
+        if (parent is BuildingNode)
+		{
+			((BuildingNode)parent).Building.OnNodeSet += (dest) => SetDestination(dest);
+		}
     }
 
 	void SetupParticles()
@@ -49,8 +55,21 @@ public partial class TransportNode : Node3D
 
 	}
 
+	void SetDestination(Node3D destination)
+	{
+		GD.Print("setting destination node to " + destination.Name);
+		var target = destination.GetNode("Transporter");
+		if (target is TransportNode && target != this)
+		{
+			_destinationNode = target as TransportNode;
+            _path = _destinationNode.GlobalPosition - GlobalPosition;
+            SetupParticles();
+        }
+    }
+
 	void PickupObject(Node3D target)
 	{
+		GD.Print("moving " + target.Name);
 		if (target != null && target is Collectable && _destinationNode != null)
 		{
 			((Collectable)target).Transport(this);

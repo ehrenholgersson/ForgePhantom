@@ -1,6 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b0l17ftd5kqio"]
-
-[ext_resource type="Script" path="res://Scripts/MeshContainer.cs" id="1_x68fr"]
+[gd_scene load_steps=48 format=3 uid="uid://b0l17ftd5kqio"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e71bw"]
 resource_name = "material_1"
@@ -745,11 +743,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_hqen3")
 
-[node name="Pump_Voxel" type="Node3D"]
-script = ExtResource("1_x68fr")
+[node name="Mesh" type="Node3D"]
 
 [node name="Pump2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.42861e-17, 0.00625, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.167, -0.658, 0.039)
 
 [node name="cuboid" type="MeshInstance3D" parent="Pump2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.42861e-17, -0.015625, 0)
@@ -842,7 +839,7 @@ mesh = SubResource("ArrayMesh_fopuy")
 skeleton = NodePath("")
 
 [node name="Wheel2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.90313e-18, 0.385938, -0.171875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.167215, -0.264869, -0.139814)
 
 [node name="cuboid19" type="MeshInstance3D" parent="Wheel2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73472e-18, 0.0015625, -0.015625)

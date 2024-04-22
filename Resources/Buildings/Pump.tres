@@ -3,11 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://uhopm0pafu63" path="res://Art/Sprites/pink_body_square.png" id="1_tcb32"]
 [ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="1_w1xul"]
 [ext_resource type="PackedScene" uid="uid://bcfsc1fjjspa1" path="res://Scenes/Prefabs/Buildings/pump/PumpCollider.tscn" id="2_qeqpo"]
-[ext_resource type="PackedScene" uid="uid://b6eav2buvii4c" path="res://Scenes/Prefabs/Buildings/pump/pump_polygon.tscn" id="3_s2poa"]
+[ext_resource type="PackedScene" uid="uid://b0l17ftd5kqio" path="res://Scenes/Prefabs/Buildings/pump/pump_voxel.tscn" id="3_5qcqm"]
 
 [resource]
 script = ExtResource("1_w1xul")
-_meshScene = ExtResource("3_s2poa")
+_meshScene = ExtResource("3_5qcqm")
 _colliderScene = ExtResource("2_qeqpo")
 Icon = ExtResource("1_tcb32")
 BuildingName = "Pump"
+_functions = 0

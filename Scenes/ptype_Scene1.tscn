@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://lhy3nyrrodry"]
+[gd_scene load_steps=24 format=3 uid="uid://lhy3nyrrodry"]
 
 [ext_resource type="Script" path="res://Scripts/General/GameController.cs" id="1_646sc"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.cs" id="1_gjvdr"]
@@ -10,9 +10,9 @@
 [ext_resource type="Resource" uid="uid://bjbtxtx2qvtxm" path="res://Resources/Buildings/cube.tres" id="7_6dokf"]
 [ext_resource type="Resource" uid="uid://c0ftfj6kqces4" path="res://Resources/Buildings/Transporter.tres" id="9_061kf"]
 [ext_resource type="Resource" uid="uid://c5sbjijpimwct" path="res://Resources/Buildings/Pump.tres" id="10_4j7d2"]
+[ext_resource type="Resource" uid="uid://djxvkkxo68o8p" path="res://Resources/Buildings/TransportRing.tres" id="10_m1mwd"]
 [ext_resource type="Resource" uid="uid://ccsh2ppmb1hru" path="res://Resources/Buildings/Ramp.tres" id="11_by22g"]
 [ext_resource type="Script" path="res://Scripts/Environment/MeshGen.cs" id="14_sbool"]
-[ext_resource type="PackedScene" uid="uid://dnynldocmqkky" path="res://Scenes/Prefabs/Transporter.tscn" id="15_dbftd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04vd0"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -37,6 +37,10 @@ albedo_color = Color(0.509804, 0.270588, 0.8, 0.509804)
 [sub_resource type="SphereMesh" id="SphereMesh_3as4g"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_w2i8p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lqnfv"]
+font_size = 40
+font_color = Color(0.705882, 0.705882, 0.705882, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_310v0"]
 albedo_color = Color(0.215686, 0.298039, 0.133333, 1)
@@ -108,7 +112,7 @@ offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control" node_paths=PackedStringArray("_buildMenuButton", "_inventoryButton", "_inventoryBar", "_buildMenu", "_worldScene", "_colorPicker")]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" node_paths=PackedStringArray("_buildMenuButton", "_inventoryButton", "_linkButton", "_inventoryBar", "_buildMenu", "_worldScene", "_colorPicker", "_LinkBar")]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.706
@@ -122,25 +126,31 @@ grow_vertical = 2
 script = ExtResource("5_24wj0")
 _buttonHeldTime = 0.1
 _itemDragPrefab = ExtResource("6_1lg6w")
-_buildMenuButton = NodePath("HBoxContainer2/Button2")
-_inventoryButton = NodePath("HBoxContainer2/Button")
+_buildMenuButton = NodePath("HBoxContainer2/BuildButton")
+_inventoryButton = NodePath("HBoxContainer2/InventoryButton")
+_linkButton = NodePath("HBoxContainer2/LinkButton")
 _inventoryBar = NodePath("Inventory")
 _buildMenu = NodePath("BuildMenu")
 _worldScene = NodePath("../..")
 _gridSize = 1.0
 _colorPicker = NodePath("BuildMenu/ColorPicker")
-_availableBuildings = [ExtResource("11_by22g"), ExtResource("10_4j7d2"), ExtResource("7_6dokf"), ExtResource("9_061kf")]
+_LinkBar = NodePath("ColorRect")
+_availableBuildings = [ExtResource("11_by22g"), ExtResource("10_4j7d2"), ExtResource("7_6dokf"), ExtResource("9_061kf"), ExtResource("10_m1mwd")]
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
+[node name="InventoryButton" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Inventory"
 
-[node name="Button2" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
+[node name="BuildButton" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Build"
+
+[node name="LinkButton" type="Button" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Link"
 
 [node name="Inventory" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -275,6 +285,25 @@ sliders_visible = false
 hex_visible = false
 presets_visible = false
 
+[node name="ColorRect" type="ColorRect" parent="Control/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.0980392, 0.0980392, 0.0980392, 0.698039)
+
+[node name="LinkText" type="Label" parent="Control/VBoxContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+text = "Text"
+label_settings = SubResource("LabelSettings_lqnfv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Collectable2" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.79502, 13.8128)
 script = ExtResource("5_rq771")
@@ -285,25 +314,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63158, 13.0848, 13.8128)
 script = ExtResource("5_rq771")
 _item = ExtResource("6_ymbuk")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="Terrain" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, -10.5, -200)
 script = ExtResource("14_sbool")
 _material = SubResource("StandardMaterial3D_310v0")
-
-[node name="Transporter" parent="." node_paths=PackedStringArray("_destinationNode") instance=ExtResource("15_dbftd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.9746, 2.56162, 0.0129547)
-_destinationNode = NodePath("../Transporter2")
-_pathradius = 2.0
-_speed = 10.0
-
-[node name="Transporter3" parent="." node_paths=PackedStringArray("_destinationNode") instance=ExtResource("15_dbftd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.1187, 2.56162, 0.0129547)
-_destinationNode = NodePath("../Transporter")
-_pathradius = 2.0
-_speed = 10.0
-
-[node name="Transporter2" parent="." node_paths=PackedStringArray("_destinationNode") instance=ExtResource("15_dbftd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.9746, 2.56162, 44.853)
-_destinationNode = NodePath("../Transporter3")
-_pathradius = 2.0
-_speed = 10.0

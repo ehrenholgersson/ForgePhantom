@@ -13,16 +13,18 @@ attractor_interaction_enabled = false
 scale_min = 0.05
 scale_max = 0.12
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vdn2i"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1p2m4"]
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.568627, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_4xh20"]
-material = SubResource("StandardMaterial3D_vdn2i")
+material = SubResource("StandardMaterial3D_1p2m4")
 
 [node name="Transporter" type="Node3D"]
 script = ExtResource("1_q5st4")
+_pathradius = 2.0
+_speed = 10.0
 
 [node name="Entry" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.518914, 0)

@@ -1,10 +1,12 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 [GlobalClass]
 public partial class Building : Resource, IDraggable
 {
-    public enum LoadaedScenes {None, Mesh, Collider, Other }
+    [Flags] public enum LoadaedScenes {None, Mesh, Collider, Other }
+    [Flags] public enum BuildingFunctions { None, Transport }
 
     //[Export] BuildingResource _resource;
     [Export] protected PackedScene _meshScene; // node containing model and animations
@@ -13,6 +15,8 @@ public partial class Building : Resource, IDraggable
     
     [Export] public Texture2D Icon;
     [Export] public string BuildingName;
+    [Export] BuildingFunctions _functions;
+    
     public float Health = 10;
 
     Node3D _meshNode;
@@ -22,6 +26,10 @@ public partial class Building : Resource, IDraggable
     Vector3 _size = Vector3.Zero;
     List<MeshInstance3D> _meshInstances = new List<MeshInstance3D>();
     public Vector3 Size { get => (_size != Vector3.Zero) ? _size : CalculateSize(); }
+    public BuildingFunctions Functions { get => _functions; }
+
+    public delegate void NodeMessage(Node3D node);
+    public NodeMessage OnNodeSet;
 
     public Building(Building original)
     {
@@ -76,6 +84,12 @@ public partial class Building : Resource, IDraggable
         var building = new BuildingNode(this);
 
         return building;
+    }
+
+    public void SetNode(Node3D node)
+    {
+        GD.Print("Set Node to " + node);
+        OnNodeSet?.Invoke(node);
     }
 
     public void TakeNodes(BuildingNode main)
@@ -163,12 +177,14 @@ public partial class Building : Resource, IDraggable
         }
         Vector3 start = Vector3.Zero;
         Vector3 end = Vector3.Zero;
+        Quaternion rotation = Quaternion.Identity;
         foreach (MeshInstance3D child in _meshInstances)
             if (child is MeshInstance3D)
             {
                 var offset = child.GlobalPosition - _meshNode.GlobalPosition; // child may be a few levels deep into heiracy so can't just use position to get its releative location
+                rotation = child.Basis.GetRotationQuaternion();
 
-                var aabb = ((MeshInstance3D)child).GetAabb();
+                var aabb = ((MeshInstance3D)child).GetAabb() * new Transform3D(child.GlobalBasis,Vector3.Zero);
                 start.X = Mathf.Min(start.X, (aabb.GetCenter() + offset).X - aabb.Size.X / 2);
                 start.Y = Mathf.Min(start.Y, (aabb.GetCenter() + offset).Y - aabb.Size.Y / 2);
                 start.Z = Mathf.Min(start.Z, (aabb.GetCenter() + offset).Z - aabb.Size.Z / 2);
@@ -179,6 +195,7 @@ public partial class Building : Resource, IDraggable
         _size.X = end.X - start.X;
         _size.Y = end.Y - start.Y;
         _size.Z = end.Z - start.Z;
+        //_size *= rotation;
 
         GD.Print("Building " + BuildingName + " size is " + _size + ", center is " + (end + start) / 2);
 
