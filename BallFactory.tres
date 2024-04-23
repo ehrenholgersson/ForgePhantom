@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Building" load_steps=6 format=3 uid="uid://c4wjet4t2h6hm"]
+
+[ext_resource type="Texture2D" uid="uid://cbjlfjwqn7xbu" path="res://Art/Sprites/green_body_square.png" id="1_62q83"]
+[ext_resource type="PackedScene" uid="uid://cxskpc8o32yde" path="res://Scenes/Prefabs/Buildings/Factory/FactoryCollider.tscn" id="2_lfy4q"]
+[ext_resource type="PackedScene" uid="uid://dwolxbxlh3dwr" path="res://Scenes/Prefabs/Buildings/Factory/FactoryMesh.tscn" id="3_nxfex"]
+[ext_resource type="PackedScene" uid="uid://6dhya164gs6f" path="res://Scenes/Prefabs/Buildings/Factory/BallFactory.tscn" id="4_nrx1w"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="5_hat0v"]
+
+[resource]
+script = ExtResource("5_hat0v")
+_meshScene = ExtResource("3_nxfex")
+_colliderScene = ExtResource("2_lfy4q")
+_otherScene = ExtResource("4_nrx1w")
+Icon = ExtResource("1_62q83")
+BuildingName = "Ball Factory"
+_functions = 2

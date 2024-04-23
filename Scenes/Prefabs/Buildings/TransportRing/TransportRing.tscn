@@ -24,6 +24,7 @@ material = SubResource("StandardMaterial3D_vdn2i")
 [node name="Transporter" type="Node3D"]
 script = ExtResource("1_rmpq5")
 _pathradius = 1.5
+_speed = 10.0
 
 [node name="Entry" type="Area3D" parent="."]
 

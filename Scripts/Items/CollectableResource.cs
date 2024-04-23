@@ -7,11 +7,13 @@ public partial class CollectableResource : Resource, IDraggable
     [Export] public Texture2D Icon;
     [Export] public Mesh _model;
     [Export] public PackedScene _object;
+    [Export] protected string _type;
     public float Health = 10;
     Vector3 _size = Vector3.Zero;
 
     public Vector3 Size { get => (_size != Vector3.Zero) ? _size : CalculateSize(); }
     public PackedScene Object { get => _object; }
+    public string Type { get => _type; }
 
     public CollectableResource()
 	{
@@ -24,7 +26,8 @@ public partial class CollectableResource : Resource, IDraggable
         Icon = original.Icon;
         Health = original.Health;
         _model = original._model;
-	}
+        _type = original._type;
+    }
 
     public Node3D GetMeshObject(Material material)
     {

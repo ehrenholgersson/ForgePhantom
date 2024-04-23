@@ -9,3 +9,4 @@
 script = ExtResource("2_14mrb")
 Icon = ExtResource("1_s6oll")
 _model = SubResource("SphereMesh_3a5cb")
+_type = "Ball"

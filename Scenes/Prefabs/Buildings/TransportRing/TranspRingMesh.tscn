@@ -2,8 +2,8 @@
 
 [sub_resource type="TorusMesh" id="TorusMesh_vg7ec"]
 custom_aabb = AABB(0, 0, 0, 4, 4, 0.8)
-inner_radius = 1.2
-outer_radius = 2.0
+inner_radius = 3.2
+outer_radius = 4.0
 rings = 24
 ring_segments = 16
 

@@ -3,20 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\egore\\ForgePhantom\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\items\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\items\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\manufacturingnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\manufacturingnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\recipe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\recipe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\ui\\toolbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\ui\\toolbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\transportnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\transportnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\items\\collectable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\items\\collectable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\items\\collectableresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\items\\collectableresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\items\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\items\\building.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\meshcontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\meshcontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\buildingnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\buildingnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\transportnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\transportnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\items\\buildingresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\items\\buildingresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\general\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,32 +55,12 @@
       "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\player\\cameramovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\items\\buildingresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\items\\buildingresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\items\\collectableresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\items\\collectableresource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\items\\collectable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\items\\collectable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\general\\interfaces.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\general\\interfaces.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\environment\\meshgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\environment\\meshgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\meshcontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\meshcontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|solutionrelative:scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ECB95654-B1B3-4429-9137-367F2C9AB021}|Prototype.csproj|c:\\users\\egore\\forgephantom\\scripts\\general\\inputhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,11 +82,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "Interfaces.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\General\\Interfaces.cs",
               "RelativeDocumentMoniker": "Scripts\\General\\Interfaces.cs",
@@ -103,7 +111,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
+              "Title": "Recipe.cs",
+              "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Recipe.cs",
+              "RelativeDocumentMoniker": "Scripts\\Recipe.cs",
+              "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Recipe.cs",
+              "RelativeToolTip": "Scripts\\Recipe.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-22T23:18:06.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ManufacturingNode.cs",
+              "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\ManufacturingNode.cs",
+              "RelativeDocumentMoniker": "Scripts\\ManufacturingNode.cs",
+              "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\ManufacturingNode.cs",
+              "RelativeToolTip": "Scripts\\ManufacturingNode.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACQAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-22T23:02:28.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "BuildingNode.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\BuildingNode.cs",
               "RelativeDocumentMoniker": "Scripts\\BuildingNode.cs",
@@ -116,32 +150,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 7,
               "Title": "MeshContainer.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\MeshContainer.cs",
               "RelativeDocumentMoniker": "Scripts\\MeshContainer.cs",
               "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\MeshContainer.cs",
               "RelativeToolTip": "Scripts\\MeshContainer.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-21T06:21:17.532Z"
+              "WhenOpened": "2024-04-21T06:21:17.532Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "TransportNode.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\TransportNode.cs",
               "RelativeDocumentMoniker": "Scripts\\TransportNode.cs",
               "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\TransportNode.cs",
               "RelativeToolTip": "Scripts\\TransportNode.cs",
-              "ViewState": "AQIAAB8AAAAAAAAAAAAiwEIAAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-19T23:48:36.024Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "MarchingCubesTables.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Environment\\MarchingCubesTables.cs",
               "RelativeDocumentMoniker": "Scripts\\Environment\\MarchingCubesTables.cs",
@@ -153,7 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "MeshGen.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Environment\\MeshGen.cs",
               "RelativeDocumentMoniker": "Scripts\\Environment\\MeshGen.cs",
@@ -165,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "InputHandler.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\General\\InputHandler.cs",
               "RelativeDocumentMoniker": "Scripts\\General\\InputHandler.cs",
@@ -177,7 +212,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "WorldSpaceBillboard.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\UI\\WorldSpaceBillboard.cs",
               "RelativeDocumentMoniker": "Scripts\\UI\\WorldSpaceBillboard.cs",
@@ -189,7 +224,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 12,
               "Title": "CameraMovement.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\CameraMovement.cs",
               "RelativeDocumentMoniker": "Scripts\\Player\\CameraMovement.cs",
@@ -202,32 +237,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 3,
               "Title": "Collectable.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Items\\Collectable.cs",
               "RelativeDocumentMoniker": "Scripts\\Items\\Collectable.cs",
               "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Items\\Collectable.cs",
               "RelativeToolTip": "Scripts\\Items\\Collectable.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAAwCAAAAAoAAAA",
+              "ViewState": "AQIAACIAAAAAAAAAAAAIwDoAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-09T09:36:29.78Z"
+              "WhenOpened": "2024-04-09T09:36:29.78Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "Building.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Items\\Building.cs",
               "RelativeDocumentMoniker": "Scripts\\Items\\Building.cs",
               "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Items\\Building.cs",
               "RelativeToolTip": "Scripts\\Items\\Building.cs",
-              "ViewState": "AQIAAJ4AAAAAAAAAAAAiwK4AAAAJAAAA",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAqwGsAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-09T11:26:11.259Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "BuildingResource.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Items\\BuildingResource.cs",
               "RelativeDocumentMoniker": "Scripts\\Items\\BuildingResource.cs",
@@ -240,19 +276,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "CollectableResource.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Items\\CollectableResource.cs",
               "RelativeDocumentMoniker": "Scripts\\Items\\CollectableResource.cs",
               "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Items\\CollectableResource.cs",
               "RelativeToolTip": "Scripts\\Items\\CollectableResource.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAYwC0AAAAaAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABwAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-09T10:57:39.604Z"
+              "WhenOpened": "2024-04-09T10:57:39.604Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "GameController.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\General\\GameController.cs",
               "RelativeDocumentMoniker": "Scripts\\General\\GameController.cs",
@@ -265,25 +302,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 4,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\PlayerController.cs",
               "RelativeDocumentMoniker": "Scripts\\Player\\PlayerController.cs",
               "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\Player\\PlayerController.cs",
               "RelativeToolTip": "Scripts\\Player\\PlayerController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAD8AAAANAAAA",
+              "ViewState": "AQIAADcAAAAAAAAAAAAIwFEAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-09T06:24:30.847Z"
+              "WhenOpened": "2024-04-09T06:24:30.847Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ToolBar.cs",
               "DocumentMoniker": "C:\\Users\\egore\\ForgePhantom\\Scripts\\UI\\ToolBar.cs",
               "RelativeDocumentMoniker": "Scripts\\UI\\ToolBar.cs",
               "ToolTip": "C:\\Users\\egore\\ForgePhantom\\Scripts\\UI\\ToolBar.cs",
               "RelativeToolTip": "Scripts\\UI\\ToolBar.cs",
-              "ViewState": "AQIAAC0BAAAAAAAAAAAAAD0BAADPAAAA",
+              "ViewState": "AQIAAL8AAAAAAAAAAAAcwN8AAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-09T06:08:31.423Z",
               "EditorCaption": ""

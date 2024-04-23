@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=3 format=3 uid="uid://i30ghmb82efq"]
+
+[ext_resource type="Resource" uid="uid://cjbjnnqu2uo8a" path="res://Resources/TestItem.tres" id="1_o0006"]
+[ext_resource type="Script" path="res://Scripts/Recipe.cs" id="3_o5r7x"]
+
+[resource]
+script = ExtResource("3_o5r7x")
+_ingredients = Array[Object]([])
+_result = ExtResource("1_o0006")
+_time = 5000.0

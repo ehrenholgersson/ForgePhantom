@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=4 format=3 uid="uid://jbkw3w3ap5f8"]
+
+[ext_resource type="Resource" uid="uid://cjbjnnqu2uo8a" path="res://Resources/TestItem.tres" id="1_ofnbj"]
+[ext_resource type="Script" path="res://Scripts/Recipe.cs" id="1_ondtc"]
+[ext_resource type="Resource" uid="uid://dfyv8qait3hus" path="res://Resources/TestCube.tres" id="2_7tyhm"]
+
+[resource]
+script = ExtResource("1_ondtc")
+_ingredients = Array[Object]([ExtResource("1_ofnbj"), ExtResource("1_ofnbj")])
+_result = ExtResource("2_7tyhm")
+_time = 5000.0

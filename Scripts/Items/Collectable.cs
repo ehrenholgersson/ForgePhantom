@@ -13,6 +13,8 @@ public partial class Collectable : RigidBody3D, IInteractable
 	Vector3 _transportPath;
 	bool _inTransit;
 
+	public CollectableResource ItemType { get => _item; }
+
 	
     //public Collectable(CollectableItem itm)
     //{
@@ -72,7 +74,7 @@ public partial class Collectable : RigidBody3D, IInteractable
 			var traveled = (GlobalPosition - _transportNode.GlobalPosition); // distance and direction we have moved from the last transporter node
 
 			//if ((_transportPath.Normalized() * traveled.Length()).DistanceTo(traveled) < _transportNode.PathRadius)
-			if (traveled.Project(_transportPath.Normalized()).DistanceTo(traveled) < _transportNode.PathRadius && traveled.Length() < _transportPath.Length())
+			if (traveled.Project(_transportPath.Normalized()).DistanceTo(traveled) < _transportNode.PathRadius && traveled.Length() < _transportPath.Length()) // todo - half decent physics
 			{
 				Freeze = true;
                 _inTransit = true;
@@ -82,6 +84,7 @@ public partial class Collectable : RigidBody3D, IInteractable
 			{
 				Freeze = false;
 				_inTransit = false;
+				_transportNode = null;
 			}
 		}
 		else if (_inTransit)

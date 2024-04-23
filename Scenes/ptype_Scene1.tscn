@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://lhy3nyrrodry"]
+[gd_scene load_steps=26 format=3 uid="uid://lhy3nyrrodry"]
 
 [ext_resource type="Script" path="res://Scripts/General/GameController.cs" id="1_646sc"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.cs" id="1_gjvdr"]
@@ -11,7 +11,9 @@
 [ext_resource type="Resource" uid="uid://c0ftfj6kqces4" path="res://Resources/Buildings/Transporter.tres" id="9_061kf"]
 [ext_resource type="Resource" uid="uid://c5sbjijpimwct" path="res://Resources/Buildings/Pump.tres" id="10_4j7d2"]
 [ext_resource type="Resource" uid="uid://djxvkkxo68o8p" path="res://Resources/Buildings/TransportRing.tres" id="10_m1mwd"]
+[ext_resource type="Resource" uid="uid://e41551mnesrj" path="res://Factory.tres" id="11_3vlvm"]
 [ext_resource type="Resource" uid="uid://ccsh2ppmb1hru" path="res://Resources/Buildings/Ramp.tres" id="11_by22g"]
+[ext_resource type="Resource" uid="uid://c4wjet4t2h6hm" path="res://BallFactory.tres" id="12_jcd3r"]
 [ext_resource type="Script" path="res://Scripts/Environment/MeshGen.cs" id="14_sbool"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04vd0"]
@@ -93,7 +95,7 @@ script = ExtResource("2_751fy")
 _focus = NodePath("../Player")
 mouse_sensitivity = Vector2(15, 15)
 _zoomSpeed = 40.0
-_maxZoom = 30.0
+_maxZoom = 40.0
 _minZoom = 10.0
 _tiltSpeed = 82.5
 _maxTilt = 80.0
@@ -135,7 +137,7 @@ _worldScene = NodePath("../..")
 _gridSize = 1.0
 _colorPicker = NodePath("BuildMenu/ColorPicker")
 _LinkBar = NodePath("ColorRect")
-_availableBuildings = [ExtResource("11_by22g"), ExtResource("10_4j7d2"), ExtResource("7_6dokf"), ExtResource("9_061kf"), ExtResource("10_m1mwd")]
+_availableBuildings = [ExtResource("11_by22g"), ExtResource("10_4j7d2"), ExtResource("7_6dokf"), ExtResource("9_061kf"), ExtResource("10_m1mwd"), ExtResource("11_3vlvm"), ExtResource("12_jcd3r")]
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2

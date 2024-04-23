@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public partial class Building : Resource, IDraggable
 {
     [Flags] public enum LoadaedScenes {None, Mesh, Collider, Other }
-    [Flags] public enum BuildingFunctions { None, Transport }
+    [Flags] public enum BuildingFunctions { None, Transport, Manufacture }
 
     //[Export] BuildingResource _resource;
     [Export] protected PackedScene _meshScene; // node containing model and animations
@@ -103,7 +103,7 @@ public partial class Building : Resource, IDraggable
         {
             main.AddChild(_colliderNode );
         }
-        if ( _otherScene!=null)
+        if ( _otherNode!=null)
         {
             main.AddChild(_otherNode);
         }

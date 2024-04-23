@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://6dhya164gs6f"]
+
+[ext_resource type="Script" path="res://Scripts/ManufacturingNode.cs" id="1_otkp2"]
+[ext_resource type="Resource" uid="uid://i30ghmb82efq" path="res://Resources/Recipes/Ball.tres" id="2_c6gib"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y7ogf"]
+size = Vector3(3.78174, 1, 3.86664)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_otkp2")
+_recipe = ExtResource("2_c6gib")
+
+[node name="Input" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Input"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00463867, 1.30714, 0.0128479)
+shape = SubResource("BoxShape3D_y7ogf")
+
+[node name="Output" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875573, 2.95535)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="1_1midl"]
 [ext_resource type="Texture2D" uid="uid://cgq0nlxq7jkt1" path="res://Art/Sprites/purple_body_square.png" id="1_j5qiy"]
-[ext_resource type="PackedScene" uid="uid://d0qtluwdmykpx" path="res://Scenes/Prefabs/Buildings/box4m.tscn" id="1_l0aid"]
+[ext_resource type="PackedScene" uid="uid://d0qtluwdmykpx" path="res://Scenes/Prefabs/Buildings/Factory/Factory.tscn" id="1_l0aid"]
 
 [resource]
 script = ExtResource("1_1midl")

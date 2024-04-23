@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Building" load_steps=4 format=3 uid="uid://b1ojm31vcl0se"]
 
 [ext_resource type="Texture2D" uid="uid://cgq0nlxq7jkt1" path="res://Art/Sprites/purple_body_square.png" id="1_ibsab"]
-[ext_resource type="PackedScene" uid="uid://d0qtluwdmykpx" path="res://Scenes/Prefabs/Buildings/box4m.tscn" id="2_ovs06"]
+[ext_resource type="PackedScene" uid="uid://d0qtluwdmykpx" path="res://Scenes/Prefabs/Buildings/Factory/Factory.tscn" id="2_ovs06"]
 [ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="3_yeyoc"]
 
 [resource]

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Building" load_steps=6 format=3 uid="uid://e41551mnesrj"]
+
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="1_n03d7"]
+[ext_resource type="Texture2D" uid="uid://uhopm0pafu63" path="res://Art/Sprites/pink_body_square.png" id="1_yuh53"]
+[ext_resource type="PackedScene" uid="uid://cxskpc8o32yde" path="res://Scenes/Prefabs/Buildings/Factory/FactoryCollider.tscn" id="2_sds7a"]
+[ext_resource type="PackedScene" uid="uid://dwolxbxlh3dwr" path="res://Scenes/Prefabs/Buildings/Factory/FactoryMesh.tscn" id="3_hhos7"]
+[ext_resource type="PackedScene" uid="uid://d0qtluwdmykpx" path="res://Scenes/Prefabs/Buildings/Factory/Factory.tscn" id="4_8spqh"]
+
+[resource]
+script = ExtResource("1_n03d7")
+_meshScene = ExtResource("3_hhos7")
+_colliderScene = ExtResource("2_sds7a")
+_otherScene = ExtResource("4_8spqh")
+Icon = ExtResource("1_yuh53")
+BuildingName = "Cube Factory"
+_functions = 2
