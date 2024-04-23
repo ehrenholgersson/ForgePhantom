@@ -204,6 +204,8 @@ expand_icon = true
 [node name="Button8" type="Button" parent="Control/VBoxContainer/Inventory"]
 layout_mode = 2
 size_flags_horizontal = 3
+icon_alignment = 1
+expand_icon = true
 
 [node name="BuildMenu" type="Control" parent="Control/VBoxContainer"]
 visible = false

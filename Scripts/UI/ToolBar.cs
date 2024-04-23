@@ -114,18 +114,8 @@ public partial class ToolBar : VBoxContainer
 
 		var mesh = _item?.GetMeshObject(_tempItemMat);
 		_tempItem.AddChild(mesh);
-		_tempItemSize = _item.Size;
-
-        // "Rotate" the size to match our eventual basis
-        //if (Mathf.Abs(_tempItemRotation) == 90 || Mathf.Abs(_tempItemRotation) == 270)
-        //{
-        //    float X = _tempItemSize.X;
-        //    _tempItemSize.X = _tempItemSize.Z; // this was y, pretty sure z is correct
-        //    _tempItemSize.Z = X;
-        //}
-
-        GD.Print("size is " + _tempItemSize);
-		GD.Print("rotation is " + _tempItemRotation);
+        _tempItem.GlobalRotationDegrees = new Vector3(0, _tempItemRotation, 0);
+        _tempItemSize = ((Building)_item).CalculateSize();
         _drag = true;
     }
 
