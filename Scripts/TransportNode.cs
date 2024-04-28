@@ -43,7 +43,7 @@ public partial class TransportNode : Node3D
 			if (process != null)
 			{
 				process.EmissionShapeScale = Vector3.One * _pathradius;
-				process.Direction = _path.Normalized();
+				process.Direction = _path.Normalized() * GlobalBasis.GetRotationQuaternion();
 				process.Spread = 0;
 				process.InitialVelocityMax = _speed / process.ScaleMax;
                 process.InitialVelocityMin = _speed / process.ScaleMax;

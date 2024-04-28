@@ -5,12 +5,20 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class Building : Resource, IDraggable
 {
-    [Flags] public enum LoadaedScenes {None, Mesh, Collider, Other }
+    [Flags] public enum LoadedScenes {None, Mesh, Collider, Other }
     [Flags] public enum BuildingFunctions { None, Transport, Manufacture }
 
-    //[Export] BuildingResource _resource;
+    /// <summary>
+    /// Scene/Prefab containing the model for the building.
+    /// </summary>
     [Export] protected PackedScene _meshScene; // node containing model and animations
+    /// <summary>
+    /// Scene/Prefab containing the collider for the building.
+    /// </summary>
     [Export] protected PackedScene _colliderScene; // node containing collider
+    /// <summary>
+    /// Scene/Prefab containing any functionality for the building.
+    /// </summary>
     [Export] protected PackedScene _otherScene; // node containing any other functionality
     
     [Export] public Texture2D Icon;
@@ -109,7 +117,12 @@ public partial class Building : Resource, IDraggable
         }
     }
 
-    public Node3D GetMeshObject(Material material) // create an instance of the mesh/visible object only and return that node (for dragging building into place)
+    /// <summary>
+    /// creates an instance of the mesh/visible object only and return that node (for dragging building into place)
+    /// </summary>
+    /// <param name="material"> Material to apply to the mesh</param>
+    
+    public Node3D GetMeshObject(Material material)
     {
         _meshNode = _meshScene.Instantiate() as Node3D;
         GameController.Singleton.AddChild(_meshNode);
@@ -168,8 +181,11 @@ public partial class Building : Resource, IDraggable
             mesh.MaterialOverride = null;
         }
     }
+    /// <summary>
+    /// as we can have a number of seperate meshes on one object, this method iterates through each meshe to find the totoal combined size of the aabbs
+    /// </summary>
 
-    public Vector3 CalculateSize() // Iterate through each mesh instance to determine the maximum size along each axis
+    public Vector3 CalculateSize() 
     {
         if (_meshNode == null)
         {
@@ -181,7 +197,7 @@ public partial class Building : Resource, IDraggable
         foreach (MeshInstance3D child in _meshInstances)
             if (child is MeshInstance3D)
             {
-                var offset = child.GlobalPosition - _meshNode.GlobalPosition; // child may be a few levels deep into heiracy so can't just use position to get its releative location
+                var offset = child.GlobalPosition - _meshNode.GlobalPosition; // child may be a few levels deep into heiracy so we can't just use position to get its releative location
                 rotation = child.Basis.GetRotationQuaternion();
 
                 var aabb = ((MeshInstance3D)child).GetAabb() * new Transform3D(child.GlobalBasis,Vector3.Zero);
@@ -198,8 +214,6 @@ public partial class Building : Resource, IDraggable
         //_size *= rotation;
 
         GD.Print("Building " + BuildingName + " size is " + _size + ", center is " + (end + start) / 2);
-
-        //_meshNode.Position -= (end + start) / 2; // should do this somewhere more obvious, also seens I'm compensation for an adjustment made in toolbar.cs (making work for self)
 
         return _size;
     }

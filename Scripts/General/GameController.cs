@@ -1,11 +1,14 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class GameController : Node
 {
 	[Export]PlayerController _player;
 	[Export]Camera3D _camera;
 	static GameController _instance;
+
+
 	
 	public static PlayerController MainPlayer {get => _instance?._player;}
 	public static Camera3D MainCamera { get => _instance?._camera;}
