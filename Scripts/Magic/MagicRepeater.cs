@@ -1,12 +1,9 @@
 using Godot;
-using Godot.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-public partial class new_script : Node3D, IMagicNode
+public partial class MagicRepeater : MagicNode
 {
-	float _powerState;
-	Magic.PowerTypes _powerType;
-    public float PowerState { get => _powerState; }
-    public Magic.PowerTypes PowerType { get => _powerType; }
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -15,6 +12,15 @@ public partial class new_script : Node3D, IMagicNode
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
+	}
+
+	async void CheckRange()
+	{
+		while (this.IsInsideTree())
+		{
+			// check nodes
+			await Task.Delay(5000);
+		}
 	}
 
 	public int DrawPower(float request)
