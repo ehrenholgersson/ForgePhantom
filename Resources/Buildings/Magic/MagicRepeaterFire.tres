@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://b15hr2ltbmdji"]
+
+[ext_resource type="PackedScene" uid="uid://c2toxg42f8b2f" path="res://Scenes/Prefabs/Buildings/Cube/CubeCollision.tscn" id="1_abaxd"]
+[ext_resource type="PackedScene" uid="uid://bdc6xsiglk2ys" path="res://Scenes/Prefabs/Buildings/Cube/box.tscn" id="2_c7m23"]
+[ext_resource type="PackedScene" uid="uid://dol4aycsgw257" path="res://Scenes/Prefabs/Buildings/MagicStuff/RepeaterFire.tscn" id="2_ovlhe"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="4_ocvde"]
+
+[resource]
+script = ExtResource("4_ocvde")
+_meshScene = ExtResource("2_c7m23")
+_colliderScene = ExtResource("1_abaxd")
+_otherScene = ExtResource("2_ovlhe")
+BuildingName = "Fire Repeater"
+_functions = 0

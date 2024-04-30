@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 [GlobalClass]
 public partial class Building : Resource, IDraggable
@@ -58,6 +59,12 @@ public partial class Building : Resource, IDraggable
         BuildingName = original.BuildingName;
         Health = original.Health;
         _size = original.Size;
+    }
+
+    public void AddInteractable(IInteractable interactable)
+    {
+        ((InteractionTrigger)_colliderNode).SetInteractionTarget(interactable);
+        GD.Print("Set interaction target to " + ((Node3D)interactable).Name);
     }
 
     public Building()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://lhy3nyrrodry"]
+[gd_scene load_steps=25 format=3 uid="uid://lhy3nyrrodry"]
 
 [ext_resource type="Script" path="res://Scripts/General/GameController.cs" id="1_646sc"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerController.cs" id="1_gjvdr"]
@@ -8,12 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://d3v0wdpxcc3ue" path="res://Scenes/Prefabs/drag_item.tscn" id="6_1lg6w"]
 [ext_resource type="Resource" uid="uid://cjbjnnqu2uo8a" path="res://Resources/TestItem.tres" id="6_ymbuk"]
 [ext_resource type="Resource" uid="uid://bjbtxtx2qvtxm" path="res://Resources/Buildings/cube.tres" id="7_6dokf"]
-[ext_resource type="Resource" uid="uid://c0ftfj6kqces4" path="res://Resources/Buildings/Transporter.tres" id="9_061kf"]
-[ext_resource type="Resource" uid="uid://c5sbjijpimwct" path="res://Resources/Buildings/Pump.tres" id="10_4j7d2"]
-[ext_resource type="Resource" uid="uid://djxvkkxo68o8p" path="res://Resources/Buildings/TransportRing.tres" id="10_m1mwd"]
-[ext_resource type="Resource" uid="uid://e41551mnesrj" path="res://Factory.tres" id="11_3vlvm"]
+[ext_resource type="Resource" uid="uid://b15hr2ltbmdji" path="res://Resources/Buildings/Magic/MagicRepeaterFire.tres" id="8_ugvh5"]
+[ext_resource type="Resource" uid="uid://mra6wq543gm" path="res://Resources/Buildings/Magic/MagicRepeaterWater.tres" id="9_cvcd7"]
 [ext_resource type="Resource" uid="uid://ccsh2ppmb1hru" path="res://Resources/Buildings/Ramp.tres" id="11_by22g"]
-[ext_resource type="Resource" uid="uid://c4wjet4t2h6hm" path="res://BallFactory.tres" id="12_jcd3r"]
+[ext_resource type="Resource" uid="uid://cj7f5yys7m00d" path="res://Resources/Buildings/Magic/MagicRepeater.tres" id="12_opag6"]
+[ext_resource type="Resource" uid="uid://d4lmayt8x50ox" path="res://Resources/Buildings/Magic/MagicSource.tres" id="13_ehk8b"]
 [ext_resource type="Script" path="res://Scripts/Environment/MeshGen.cs" id="14_sbool"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_04vd0"]
@@ -137,7 +136,7 @@ _worldScene = NodePath("../..")
 _gridSize = 1.0
 _colorPicker = NodePath("BuildMenu/ColorPicker")
 _LinkBar = NodePath("ColorRect")
-_availableBuildings = [ExtResource("11_by22g"), ExtResource("10_4j7d2"), ExtResource("7_6dokf"), ExtResource("9_061kf"), ExtResource("10_m1mwd"), ExtResource("11_3vlvm"), ExtResource("12_jcd3r")]
+_availableBuildings = [ExtResource("13_ehk8b"), ExtResource("12_opag6"), ExtResource("8_ugvh5"), ExtResource("9_cvcd7"), ExtResource("7_6dokf"), ExtResource("11_by22g")]
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2

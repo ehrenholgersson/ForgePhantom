@@ -8,10 +8,12 @@ public partial class WorldSpaceBillboard : Node3D
     protected MeshInstance3D Mesh;
     protected Node3D Target;
     protected Vector3 Offset = new Vector3(0,2,0);
+    public RichTextLabel Text;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		Mesh = GetNode<MeshInstance3D>("MeshInstance3D");
+        Text = GetNode<RichTextLabel>("SubViewport/RichTextLabel");
         // workaround for godot viewport bug....
         RenderingServer.FramePostDraw += OnFramePostDraw;
     }

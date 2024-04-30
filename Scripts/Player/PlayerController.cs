@@ -203,12 +203,12 @@ public partial class PlayerController : CharacterBody3D
             {
 				if (_selectedObject != null)
 				{
-					GetNode(((Node)_selectedObject).GetPath()+ "/InteractionBillboard")?.QueueFree();
+					_selectedObject.OnDeselect();
 				}
 				_selectedObject = newSelection;
 				if (newSelection != null)
 				{
-					WorldSpaceBillboard.New3DBillboard((Node3D)_selectedObject, Vector3.Up * 2f, "InteractionBillboard");
+					_selectedObject.OnSelect();
 				}
 			}
             GD.Print("Player interactable selected as " + (((Node)_selectedObject)?.Name ?? "nothing"));

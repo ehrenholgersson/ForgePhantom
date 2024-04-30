@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://mra6wq543gm"]
+
+[ext_resource type="PackedScene" uid="uid://c2toxg42f8b2f" path="res://Scenes/Prefabs/Buildings/Cube/CubeCollision.tscn" id="1_m51hc"]
+[ext_resource type="PackedScene" uid="uid://b1kqondfucpqw" path="res://Scenes/Prefabs/Buildings/MagicStuff/RepeaterWater.tscn" id="2_toci8"]
+[ext_resource type="PackedScene" uid="uid://bdc6xsiglk2ys" path="res://Scenes/Prefabs/Buildings/Cube/box.tscn" id="2_w50tn"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="4_vsu8p"]
+
+[resource]
+script = ExtResource("4_vsu8p")
+_meshScene = ExtResource("2_w50tn")
+_colliderScene = ExtResource("1_m51hc")
+_otherScene = ExtResource("2_toci8")
+BuildingName = "Water Repeater"
+_functions = 0

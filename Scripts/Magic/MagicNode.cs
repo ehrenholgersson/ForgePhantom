@@ -5,86 +5,122 @@ using System.Threading.Tasks;
 
 public abstract partial class MagicNode : Node3D
 {
-    protected static List<MagicNode> _allNodes;
-    protected List<MagicNode> _powerPath;
-    protected List<MagicNode> _connectedNodes;
-    protected List<MagicNode> _powerSources;
+    protected static List<MagicNode> _allNodes = new List<MagicNode>();
+    protected List<List<MagicNode>> _powerPaths = new List<List<MagicNode>>();
+    protected List<MagicNode> _connectedNodes = new List<MagicNode>();
+    protected List<MagicNode> _powerSources = new List<MagicNode>();
     protected float _powerLevel = 0;
-    protected float _maxRange = 20;
+    protected Building _parent;
+    public float PowerLevel { get => _powerLevel; }
+    [Export] protected float _maxRange = 20;
     [Export]protected Magic.PowerTypes _powerType;
-    [Export] Mesh _mesh;
-    StandardMaterial3D _material;
-    
+    public Magic.PowerTypes PowerType { get => _powerType; }
+
     public float PowerState { get; }
-    public Magic.PowerTypes PowerType { get; }
 
     public override void _Ready()
     {
         _allNodes.Add(this);
-        _material = _mesh.SurfaceGetMaterial(0).Duplicate() as StandardMaterial3D;
+        var parent = GetParent();
+        if (parent is BuildingNode)
+        {
+            _parent = (parent as BuildingNode).Building;
+        }
     }
 
-    public override void _PhysicsProcess(double delta)
-    {
-        _powerLevel = 0;
-        foreach (MagicNode mNode in _allNodes)
-        {
-            _powerLevel += mNode._powerLevel * Magic.MagicMultiplier[(int)_powerType, (int)mNode._powerType];
-        }
-        Mathf.Clamp(_powerLevel, 0, 1);
-        _material.AlbedoColor = Magic.PowerColors[(int)_powerType] * Mathf.Min(0.5f, _powerLevel);
-    }
 
     protected int DrawPower(float request)
     {
         return 0;
     }
     
-    async void CheckNodeConnection()
+    protected async void CheckNodeConnection()
     {
         
         while (this.IsInsideTree())
         {
+            await Task.Delay(1000);
+
             bool changed = false;
             // check nodes
             foreach (MagicNode mNode in _allNodes)
             {
-                // check in range
-                if (mNode.GlobalPosition.DistanceTo(this.GlobalPosition) > mNode._maxRange * mNode._powerLevel * Magic.MagicMultiplier[(int)_powerType, (int)mNode._powerType])
+                if (mNode == this)
                 {
-                    // check we are not in their _powerPath
-                    if (!mNode._powerPath.Contains(this))
+                    continue;
+                }
+                // check in range
+                if (mNode.GlobalPosition.DistanceTo(this.GlobalPosition) < mNode._maxRange * mNode._powerLevel * Mathf.Abs(Magic.MagicMultiplier[(int)_powerType, (int)mNode._powerType]))
+                {
+                    if (mNode is MagicSource)
                     {
                         if (!_connectedNodes.Contains(mNode))
                         {
                             _connectedNodes.Add(mNode);
                             changed = true;
-                            continue;
                         }
-                    }
-                    else
-                    {
                         continue;
                     }
+
+                    // need to ensure we are "down the chain" from the node in question 
+                    foreach (List<MagicNode> mNodePath in mNode._powerPaths)
+                    {
+                        if (mNodePath.Contains(this))
+                        {
+                            continue;
+                        }
+                        if (_powerPaths.Count > 0)
+                        {
+                            if (!(mNodePath.Intersect(_connectedNodes).Count() > 0))
+                            {
+                                if (!_connectedNodes.Contains(mNode))
+                                {
+                                    _connectedNodes.Add(mNode);
+                                    changed = true;
+                                }
+                                goto NEXTNODE;
+                            }
+                        }
+                        else
+                        {
+                            _connectedNodes.Add(mNode);
+                            changed = true;
+                            goto NEXTNODE;
+                        }
+                    }
                 }
-                else if (_connectedNodes.Contains(mNode))
+                if (_connectedNodes.Contains(mNode))
                 {
-                    _connectedNodes.RemoveAll(t => t is MagicNode); // 
+                    _connectedNodes.Remove(mNode); // 
                     changed = true;
                 }
+            NEXTNODE:;
             }
             if (changed)
             {
-                _powerPath.Clear();
+                _powerPaths.Clear();
                 _powerSources.Clear();
+                //_maxRange = 0;
                 foreach (MagicNode mNode in _connectedNodes)
                 {
-                    _powerPath.Add(mNode);
-                    _powerPath.AddRange(mNode._powerPath); // this will create some duplicate entries, don't think its a problem
+                    if (mNode is MagicSource)
+                    {
+                        _powerPaths.Add(new List<MagicNode> { mNode });
+                    }
+                    else
+                    {
+                        foreach (List<MagicNode> path in mNode._powerPaths)
+                        {
+                            List<MagicNode> newPath = new List<MagicNode>();
+                            newPath.Add(mNode);
+                            newPath.AddRange(path); // this will create some duplicate entries, don't think its a problem
+                            _powerPaths.Add(newPath);
+                        }
+                    }
                     _powerSources = _powerSources.Union(mNode._powerSources).ToList();
                 }
             }
-            await Task.Delay(5000);
+            
         }
     }
 }

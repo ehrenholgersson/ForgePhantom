@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://cj7f5yys7m00d"]
+
+[ext_resource type="PackedScene" uid="uid://c2toxg42f8b2f" path="res://Scenes/Prefabs/Buildings/Cube/CubeCollision.tscn" id="1_ulwqf"]
+[ext_resource type="PackedScene" uid="uid://dp8skd63ak25h" path="res://Scenes/Prefabs/Buildings/MagicStuff/Repeater.tscn" id="2_1mrws"]
+[ext_resource type="PackedScene" uid="uid://bdc6xsiglk2ys" path="res://Scenes/Prefabs/Buildings/Cube/box.tscn" id="2_38rx7"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="3_kpb4a"]
+
+[resource]
+script = ExtResource("3_kpb4a")
+_meshScene = ExtResource("2_38rx7")
+_colliderScene = ExtResource("1_ulwqf")
+_otherScene = ExtResource("2_1mrws")
+BuildingName = "Magic Repeater"
+_functions = 0

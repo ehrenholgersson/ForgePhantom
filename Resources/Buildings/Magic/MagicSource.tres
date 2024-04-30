@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://d4lmayt8x50ox"]
+
+[ext_resource type="PackedScene" uid="uid://c2toxg42f8b2f" path="res://Scenes/Prefabs/Buildings/Cube/CubeCollision.tscn" id="1_58ds6"]
+[ext_resource type="PackedScene" uid="uid://bdc6xsiglk2ys" path="res://Scenes/Prefabs/Buildings/Cube/box.tscn" id="2_xuaps"]
+[ext_resource type="PackedScene" uid="uid://cai6ul7ab6p2b" path="res://Scenes/Prefabs/Buildings/MagicStuff/Source.tscn" id="3_44vkp"]
+[ext_resource type="Script" path="res://Scripts/Items/Building.cs" id="4_px8rb"]
+
+[resource]
+script = ExtResource("4_px8rb")
+_meshScene = ExtResource("2_xuaps")
+_colliderScene = ExtResource("1_58ds6")
+_otherScene = ExtResource("3_44vkp")
+BuildingName = "Magic source"
+_functions = 0

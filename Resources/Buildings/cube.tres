@@ -11,3 +11,4 @@ _meshScene = ExtResource("3_rqifp")
 _colliderScene = ExtResource("2_2ly72")
 Icon = ExtResource("1_sv5ij")
 BuildingName = "Cube"
+_functions = 0

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dol4aycsgw257"]
+
+[ext_resource type="Script" path="res://Scripts/Magic/MagicRepeater.cs" id="1_tr6bn"]
+
+[node name="Repeater" type="Node3D"]
+script = ExtResource("1_tr6bn")
+_maxRange = 50.0
+_powerType = 3

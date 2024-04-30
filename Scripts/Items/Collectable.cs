@@ -13,6 +13,8 @@ public partial class Collectable : RigidBody3D, IInteractable
 	Vector3 _transportPath;
 	bool _inTransit;
 
+	WorldSpaceBillboard _interactionPrompt;
+
 	public CollectableResource ItemType { get => _item; }
 
 	
@@ -65,6 +67,17 @@ public partial class Collectable : RigidBody3D, IInteractable
 		_transportNode = Origin;
 		_transportPath = Origin.TransportPath;
 	}
+
+	public void OnSelect()
+	{
+        _interactionPrompt = WorldSpaceBillboard.New3DBillboard(this, Vector3.Up * 2f, "InteractionBillboard");
+    }
+
+	public void OnDeselect()
+	{
+        _interactionPrompt?.QueueFree();
+
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

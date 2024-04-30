@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://h68er06d1fib"]
+
+[ext_resource type="Script" path="res://Scripts/Magic/MagicSource.cs" id="1_8ob0d"]
+
+[node name="Source" type="Node3D"]
+script = ExtResource("1_8ob0d")
+_maxRange = 50.0
+_powerType = 3
